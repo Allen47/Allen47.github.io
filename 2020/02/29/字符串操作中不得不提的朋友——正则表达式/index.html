@@ -7,16 +7,17 @@
   
   <title>字符串操作中不得不提的朋友——正则表达式 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="字符串操作中不得不提的朋友——正则表达式一、简述正则表达式，Regular Expression ，又称规则表达式，简写为reg exp。学习String 类的时候，有很多方法中用到了regex。详见维基百科“正则表达式词条” 。 正则表达式是一种带有规律 、格式的表达式。通常用来匹配格式、替换、检索。 作用在很多开发场景都会看到正则表达式的影子，一言以蔽之，其作用无非一下三种： *1.格式检验；">
+  <meta name="description" content="——赶在2.29 24:00之前发一篇一、简述正则表达式，Regular Expression ，又称规则表达式，简写为reg exp。学习String 类的时候，有很多方法中用到了regex。详见维基百科“正则表达式词条” 。 正则表达式是一种带有规律 、格式的表达式。通常用来匹配格式、替换、检索。 作用在很多开发场景都会看到正则表达式的影子，一言以蔽之，其作用无非一下三种： *1.格式检验；2">
 <meta property="og:type" content="article">
 <meta property="og:title" content="字符串操作中不得不提的朋友——正则表达式">
 <meta property="og:url" content="http://yoursite.com/2020/02/29/%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C%E4%B8%AD%E4%B8%8D%E5%BE%97%E4%B8%8D%E6%8F%90%E7%9A%84%E6%9C%8B%E5%8F%8B%E2%80%94%E2%80%94%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="字符串操作中不得不提的朋友——正则表达式一、简述正则表达式，Regular Expression ，又称规则表达式，简写为reg exp。学习String 类的时候，有很多方法中用到了regex。详见维基百科“正则表达式词条” 。 正则表达式是一种带有规律 、格式的表达式。通常用来匹配格式、替换、检索。 作用在很多开发场景都会看到正则表达式的影子，一言以蔽之，其作用无非一下三种： *1.格式检验；">
+<meta property="og:description" content="——赶在2.29 24:00之前发一篇一、简述正则表达式，Regular Expression ，又称规则表达式，简写为reg exp。学习String 类的时候，有很多方法中用到了regex。详见维基百科“正则表达式词条” 。 正则表达式是一种带有规律 、格式的表达式。通常用来匹配格式、替换、检索。 作用在很多开发场景都会看到正则表达式的影子，一言以蔽之，其作用无非一下三种： *1.格式检验；2">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-02-29T15:06:42.000Z">
-<meta property="article:modified_time" content="2020-02-29T15:08:45.129Z">
+<meta property="article:modified_time" content="2020-02-29T15:46:30.780Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="String">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -88,7 +89,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="字符串操作中不得不提的朋友——正则表达式"><a href="#字符串操作中不得不提的朋友——正则表达式" class="headerlink" title="字符串操作中不得不提的朋友——正则表达式"></a>字符串操作中不得不提的朋友——正则表达式</h1><h2 id="一、简述"><a href="#一、简述" class="headerlink" title="一、简述"></a>一、简述</h2><p>正则表达式，Regular Expression ，又称规则表达式，简写为reg exp。学习String 类的时候，有很多方法中用到了regex。详见<a href="https://zh.wikipedia.org/wiki/正则表达式" target="_blank" rel="noopener">维基百科“正则表达式词条” </a>。</p>
+        <pre><code>——赶在2.29 24:00之前发一篇</code></pre><h2 id="一、简述"><a href="#一、简述" class="headerlink" title="一、简述"></a>一、简述</h2><p>正则表达式，Regular Expression ，又称规则表达式，简写为reg exp。学习String 类的时候，有很多方法中用到了regex。详见<a href="https://zh.wikipedia.org/wiki/正则表达式" target="_blank" rel="noopener">维基百科“正则表达式词条” </a>。</p>
 <p>正则表达式是一种带有规律 、格式的表达式。通常用来匹配格式、替换、检索。</p>
 <h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p>在很多开发场景都会看到正则表达式的影子，一言以蔽之，其作用无非一下三种：</p>
 <p>*<em>1.格式检验；2.拆分替换；3.检索字串 *</em>。</p>
@@ -155,23 +156,15 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/02/29/%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C%E4%B8%AD%E4%B8%8D%E5%BE%97%E4%B8%8D%E6%8F%90%E7%9A%84%E6%9C%8B%E5%8F%8B%E2%80%94%E2%80%94%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" data-id="ck77qrcob0000jkujfk7ihdkk" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/02/29/%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C%E4%B8%AD%E4%B8%8D%E5%BE%97%E4%B8%8D%E6%8F%90%E7%9A%84%E6%9C%8B%E5%8F%8B%E2%80%94%E2%80%94%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" data-id="ck77s5qut00001gujbx3q7pgo" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/" rel="tag">String</a></li></ul>
+
     </footer>
   </div>
   
     
-<nav id="article-nav">
-  
-  
-    <a href="/2020/02/26/Hello-World-0/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Hello World</div>
-    </a>
-  
-</nav>
-
   
 </article>
 
@@ -183,9 +176,23 @@
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/" rel="tag">String</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/String/" style="font-size: 10px;">String</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
@@ -205,14 +212,6 @@
         
           <li>
             <a href="/2020/02/29/%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C%E4%B8%AD%E4%B8%8D%E5%BE%97%E4%B8%8D%E6%8F%90%E7%9A%84%E6%9C%8B%E5%8F%8B%E2%80%94%E2%80%94%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">字符串操作中不得不提的朋友——正则表达式</a>
-          </li>
-        
-          <li>
-            <a href="/2020/02/26/Hello-World-0/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2020/02/26/hello-world/">Hello World</a>
           </li>
         
       </ul>
