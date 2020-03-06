@@ -102,5 +102,15 @@ deploy:
   repository: git@github.com:Allen47/Allen47.github.io.git
   branch: master
 
-  
+##回车问题
+marked:
+  gfm: true
+  pedantic: false
+  sanitize: false
+  tables: true
+  breaks: false
+  smartLists: true
+  smartypants: true
+  modifyAnchors: ''
+  autolink: true
          

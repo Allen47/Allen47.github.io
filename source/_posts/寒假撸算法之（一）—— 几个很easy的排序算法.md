@@ -1,7 +1,7 @@
 ---
 title: 寒假撸算法之（一）——  几个很easy的排序算法
 date: 2020-03-01 15:11:18
-categories: Algrithm
+categories: 数据结构和算法
 tags: [冒泡排序,选择排序,插入排序,对数器]
 ---
 
