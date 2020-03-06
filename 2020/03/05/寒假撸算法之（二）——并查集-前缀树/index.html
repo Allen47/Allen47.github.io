@@ -20,28 +20,39 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="所有东西都是技术问题，你写不出来是缺乏练习而不是笨">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Mathkey&#39;s site">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="一、并查集简介并查集，顾名思义，是主要提供两个操作：“并” ，”查“的集合，函数功能如下： Union(A,B) ：将 A 和 B 所在的集合合并。将 size 小的合并到 size 大的集合中。 isSameSet(A,B) : 返回A 和 B 所在的集合是否是同一个集合。 在并查集中，每个元素节点有一个 value 和 P 指针，P 指向上一级节点。 代表点：以代表点来代表该集合。例如用链表的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="寒假撸算法之（二）—— 并查集 &amp; 前缀树">
+<meta property="og:url" content="http://yoursite.com/2020/03/05/%E5%AF%92%E5%81%87%E6%92%B8%E7%AE%97%E6%B3%95%E4%B9%8B%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86-%E5%89%8D%E7%BC%80%E6%A0%91/index.html">
 <meta property="og:site_name" content="Mathkey&#39;s site">
-<meta property="og:description" content="所有东西都是技术问题，你写不出来是缺乏练习而不是笨">
+<meta property="og:description" content="一、并查集简介并查集，顾名思义，是主要提供两个操作：“并” ，”查“的集合，函数功能如下： Union(A,B) ：将 A 和 B 所在的集合合并。将 size 小的合并到 size 大的集合中。 isSameSet(A,B) : 返回A 和 B 所在的集合是否是同一个集合。 在并查集中，每个元素节点有一个 value 和 P 指针，P 指向上一级节点。 代表点：以代表点来代表该集合。例如用链表的">
+<meta property="og:image" content="http://yoursite.com/images/tu1.JPG">
+<meta property="og:image" content="http://yoursite.com/images/tu2.JPG">
+<meta property="og:image" content="http://yoursite.com/images/tu3.JPG">
+<meta property="og:image" content="http://yoursite.com/images/tu4.png">
+<meta property="og:image" content="http://yoursite.com/images/tu5.png">
+<meta property="og:image" content="http://yoursite.com/images/tu6.png">
+<meta property="article:published_time" content="2020-03-05T08:49:28.000Z">
+<meta property="article:modified_time" content="2020-03-06T10:18:08.779Z">
 <meta property="article:author" content="Mathkey">
+<meta property="article:tag" content="并查集">
+<meta property="article:tag" content="前缀树">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/images/tu1.JPG">
 
-<link rel="canonical" href="http://yoursite.com/">
+<link rel="canonical" href="http://yoursite.com/2020/03/05/%E5%AF%92%E5%81%87%E6%92%B8%E7%AE%97%E6%B3%95%E4%B9%8B%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86-%E5%89%8D%E7%BC%80%E6%A0%91/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false
+    isHome : false,
+    isPost : true
   };
 </script>
 
-  <title>Mathkey's site</title>
+  <title>寒假撸算法之（二）—— 并查集 & 前缀树 | Mathkey's site</title>
   
 
 
@@ -156,91 +167,10 @@
             
 
   <div class="posts-expand">
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/05/%E8%8D%B7%E5%85%B0%E5%9B%BD%E6%97%97%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Mathkey">
-      <meta itemprop="description" content="所有东西都是技术问题，你写不出来是缺乏练习而不是笨">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mathkey's site">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/05/%E8%8D%B7%E5%85%B0%E5%9B%BD%E6%97%97%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">荷兰国旗问题</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-03-05 23:02:17" itemprop="dateCreated datePublished" datetime="2020-03-05T23:02:17+08:00">2020-03-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-03-06 00:31:08" itemprop="dateModified" datetime="2020-03-06T00:31:08+08:00">2020-03-06</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%AF%8F%E6%97%A5%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">每日刷题</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
       
-          <p>【题目大意】给定一个单向链表，将单向链表按某个值划分成左边小、中间相等、右边大的形式。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/03/05/%E8%8D%B7%E5%85%B0%E5%9B%BD%E6%97%97%E9%97%AE%E9%A2%98/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
   
   
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/05/%E5%AF%92%E5%81%87%E6%92%B8%E7%AE%97%E6%B3%95%E4%B9%8B%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86-%E5%89%8D%E7%BC%80%E6%A0%91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -254,8 +184,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/05/%E5%AF%92%E5%81%87%E6%92%B8%E7%AE%97%E6%B3%95%E4%B9%8B%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86-%E5%89%8D%E7%BC%80%E6%A0%91/" class="post-title-link" itemprop="url">寒假撸算法之（二）—— 并查集 & 前缀树</a>
+          寒假撸算法之（二）—— 并查集 & 前缀树
         </h1>
 
         <div class="post-meta">
@@ -285,6 +214,13 @@
             </span>
 
           
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
 
         </div>
       </header>
@@ -295,7 +231,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="一、并查集"><a href="#一、并查集" class="headerlink" title="一、并查集"></a>一、并查集</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>并查集，顾名思义，是主要提供两个操作：“并” ，”查“的集合，函数功能如下：</p>
+        <h2 id="一、并查集"><a href="#一、并查集" class="headerlink" title="一、并查集"></a>一、并查集</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>并查集，顾名思义，是主要提供两个操作：“并” ，”查“的集合，函数功能如下：</p>
 <p>Union(A,B) ：将 A 和 B 所在的集合合并。将 size 小的合并到 size 大的集合中。</p>
 <p>isSameSet(A,B) : 返回A 和 B 所在的集合是否是同一个集合。</p>
 <p>在并查集中，每个元素节点有一个 value 和 P 指针，P 指向上一级节点。</p>
@@ -364,263 +300,40 @@
 <h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><p>插入，删除，查询都只需要目标字符串的长度时间，即 T( N ) = O( N )</p>
 <h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><p>图、字符串中的很多操作都可以用到前缀树，后续的文章中会一一讲解，敬请期待。</p>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag"># 并查集</a>
+              <a href="/tags/%E5%89%8D%E7%BC%80%E6%A0%91/" rel="tag"># 前缀树</a>
+          </div>
 
         
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/04/%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E9%93%BE%E8%A1%A8%E6%98%AF%E5%90%A6%E6%98%AF%E5%9B%9E%E6%96%87%E7%BB%93%E6%9E%84/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Mathkey">
-      <meta itemprop="description" content="所有东西都是技术问题，你写不出来是缺乏练习而不是笨">
-    </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mathkey's site">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/04/%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E9%93%BE%E8%A1%A8%E6%98%AF%E5%90%A6%E6%98%AF%E5%9B%9E%E6%96%87%E7%BB%93%E6%9E%84/" class="post-title-link" itemprop="url">判断一个链表是否是回文结构</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-03-04 17:54:13 / Modified: 23:24:28" itemprop="dateCreated datePublished" datetime="2020-03-04T17:54:13+08:00">2020-03-04</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%AF%8F%E6%97%A5%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">每日刷题</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="题目：判断一个链表是否为回文结构"><a href="#题目：判断一个链表是否为回文结构" class="headerlink" title="题目：判断一个链表是否为回文结构"></a>题目：判断一个链表是否为回文结构</h2><p>给定一个链表的头节点head，请判断该链表是否为回文结构。</p>
-<p>例如：1 -&gt;2 -&gt; 1，返回true。1 -&gt; 2 -&gt; 2 -&gt; 1，返回true。15 -&gt; 6 -&gt; 15，返回true。1 -&gt; 2 -&gt; 3，返回 false 。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/03/04/%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E9%93%BE%E8%A1%A8%E6%98%AF%E5%90%A6%E6%98%AF%E5%9B%9E%E6%96%87%E7%BB%93%E6%9E%84/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/04/%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E9%93%BE%E8%A1%A8%E6%98%AF%E5%90%A6%E6%98%AF%E5%9B%9E%E6%96%87%E7%BB%93%E6%9E%84/" rel="prev" title="判断一个链表是否是回文结构">
+      <i class="fa fa-chevron-left"></i> 判断一个链表是否是回文结构
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/05/%E8%8D%B7%E5%85%B0%E5%9B%BD%E6%97%97%E9%97%AE%E9%A2%98/" rel="next" title="荷兰国旗问题">
+      荷兰国旗问题 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/01/%E5%AF%92%E5%81%87%E6%92%B8%E7%AE%97%E6%B3%95%E4%B9%8B%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%20%E5%87%A0%E4%B8%AA%E5%BE%88easy%E7%9A%84%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Mathkey">
-      <meta itemprop="description" content="所有东西都是技术问题，你写不出来是缺乏练习而不是笨">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mathkey's site">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/01/%E5%AF%92%E5%81%87%E6%92%B8%E7%AE%97%E6%B3%95%E4%B9%8B%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%20%E5%87%A0%E4%B8%AA%E5%BE%88easy%E7%9A%84%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">寒假撸算法之（一）——  几个很easy的排序算法</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-03-01 15:11:18" itemprop="dateCreated datePublished" datetime="2020-03-01T15:11:18+08:00">2020-03-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-03-06 17:04:34" itemprop="dateModified" datetime="2020-03-06T17:04:34+08:00">2020-03-06</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构和算法</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>从这篇文章开始，笔者想总结一下寒假所学到的算法，一方面是做个总结，另一方面也是为了接下来的面试做一个预热咯。本文将介绍面试常问的几种排序算法，在其中参杂一些算法题目，文法拙劣还请不吝赐教。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/03/01/%E5%AF%92%E5%81%87%E6%92%B8%E7%AE%97%E6%B3%95%E4%B9%8B%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%20%E5%87%A0%E4%B8%AA%E5%BE%88easy%E7%9A%84%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/29/%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C%E4%B8%AD%E4%B8%8D%E5%BE%97%E4%B8%8D%E6%8F%90%E7%9A%84%E6%9C%8B%E5%8F%8B%E2%80%94%E2%80%94%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Mathkey">
-      <meta itemprop="description" content="所有东西都是技术问题，你写不出来是缺乏练习而不是笨">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mathkey's site">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/29/%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C%E4%B8%AD%E4%B8%8D%E5%BE%97%E4%B8%8D%E6%8F%90%E7%9A%84%E6%9C%8B%E5%8F%8B%E2%80%94%E2%80%94%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="post-title-link" itemprop="url">字符串操作中不得不提的朋友——正则表达式</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-02-29 23:06:42" itemprop="dateCreated datePublished" datetime="2020-02-29T23:06:42+08:00">2020-02-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-03-04 22:27:49" itemprop="dateModified" datetime="2020-03-04T22:27:49+08:00">2020-03-04</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="一、简述"><a href="#一、简述" class="headerlink" title="一、简述"></a>一、简述</h2><p>正则表达式，Regular Expression ，又称规则表达式，简写为reg exp。学习String 类的时候，有很多方法中用到了regex。详见<a href="https://zh.wikipedia.org/wiki/正则表达式" target="_blank" rel="noopener">维基百科“正则表达式词条” </a>。</p>
-<p>正则表达式是一种带有规律 、格式的表达式。通常用来匹配格式、替换、检索。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/02/29/%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C%E4%B8%AD%E4%B8%8D%E5%BE%97%E4%B8%8D%E6%8F%90%E7%9A%84%E6%9C%8B%E5%8F%8B%E2%80%94%E2%80%94%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
   </article>
   
   
   
 
   </div>
-
-  
-
 
 
           </div>
@@ -671,6 +384,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、并查集"><span class="nav-number">1.</span> <span class="nav-text">一、并查集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Union演示"><span class="nav-number">1.2.</span> <span class="nav-text">Union演示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#isSameSet演示"><span class="nav-number">1.3.</span> <span class="nav-text">isSameSet演示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化——路径压缩"><span class="nav-number">1.4.</span> <span class="nav-text">优化——路径压缩</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Code"><span class="nav-number">1.5.</span> <span class="nav-text">Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时间复杂度分析"><span class="nav-number">1.6.</span> <span class="nav-text">时间复杂度分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、前缀树"><span class="nav-number">2.</span> <span class="nav-text">二、前缀树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介-1"><span class="nav-number">2.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#封装节点："><span class="nav-number">2.2.</span> <span class="nav-text">封装节点：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有什么用？"><span class="nav-number">2.3.</span> <span class="nav-text">有什么用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Code-1"><span class="nav-number">2.4.</span> <span class="nav-text">Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时间复杂度"><span class="nav-number">2.5.</span> <span class="nav-text">时间复杂度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用"><span class="nav-number">2.6.</span> <span class="nav-text">应用</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
