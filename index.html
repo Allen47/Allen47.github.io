@@ -160,6 +160,63 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/%E5%AD%97%E8%8A%82%E9%9D%A2%E7%BB%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Mathkey">
+      <meta itemprop="description" content="所有东西都是技术问题，你写不出来是缺乏练习而不是笨">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mathkey's site">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/07/%E5%AD%97%E8%8A%82%E9%9D%A2%E7%BB%8F/" class="post-title-link" itemprop="url">字节面经</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-03-07 10:45:23" itemprop="dateCreated datePublished" datetime="2020-03-07T10:45:23+08:00">2020-03-07</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/06/%E4%B8%A4%E6%A3%B5%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%E5%85%83%E7%B4%A0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -191,7 +248,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-03-07 00:49:32" itemprop="dateModified" datetime="2020-03-07T00:49:32+08:00">2020-03-07</time>
+                <time title="Modified: 2020-03-07 13:46:38" itemprop="dateModified" datetime="2020-03-07T13:46:38+08:00">2020-03-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -215,51 +272,15 @@
 
       
           <h2 id="【LeetCode】1305-两棵二叉搜索树中的所有元素"><a href="#【LeetCode】1305-两棵二叉搜索树中的所有元素" class="headerlink" title="【LeetCode】1305. 两棵二叉搜索树中的所有元素"></a><a href="https://leetcode-cn.com/problems/all-elements-in-two-binary-search-trees/" target="_blank" rel="noopener">【LeetCode】1305. 两棵二叉搜索树中的所有元素</a></h2><h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p>给你 root1 和 root2 这两棵二叉搜索树。</p>
-<p>请你返回一个列表，其中包含 两棵树 中的所有整数并按 升序 排序。.</p>
-<p>示例 1：</p>
-<p><img src="/images/2-1.png" alt="image1"></p>
-<p>输入：root1 = [2,1,4], root2 = [1,0,3]
-输出：[0,1,1,2,3,4]</p>
-<p>示例 2：</p>
-<p>输入：root1 = [0,-10,10], root2 = [5,1,7,0,2]
-输出：[-10,0,0,1,2,5,7,10]</p>
-<p>示例 3：</p>
-<p>输入：root1 = [], root2 = [5,1,7,0,2]
-输出：[0,1,2,5,7]
-示例 4：</p>
-<p>输入：root1 = [0,-10,10], root2 = []
-输出：[-10,0,10]
-示例 5：</p>
-<p><img src="/images/2-2.png" alt="image2"></p>
-<p>输入：root1 = [1,null,8], root2 = [8,1]
-输出：[1,1,8,8]</p>
-<p>提示：</p>
-<p>每棵树最多有 5000 个节点。
-每个节点的值在 [-10^5, 10^5] 之间。</p>
-<hr>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><h4 id="法一：Collect-and-Sort"><a href="#法一：Collect-and-Sort" class="headerlink" title="法一：Collect and Sort"></a>法一：Collect and Sort</h4><p>将两棵树中的元素收集到一个数组中，进行排序，可以很快解决。【此方法 Code 过于 easy ，省略略略略略】</p>
-<p>时间复杂度：T( N ) = O( NlogN )</p>
-<p>空间复杂度：需要存下所有的节点， S( N ) = O( N )</p>
-<h4 id="法二：Inorder-traversal-merge"><a href="#法二：Inorder-traversal-merge" class="headerlink" title="法二：Inorder traversal + merge"></a>法二：Inorder traversal + merge</h4><p>由于题目中给的树是 BST ，我们可以充分利用二叉搜索树的性质：左子树 &lt;= 根 &lt; 右子树。分别将两棵树进行中序遍历后存到两个数组中，再对两个数组进行 merge 操作，即可得到结果。</p>
-<p>Code:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">getAllElements</span><span class="params">(TreeNode root1, TreeNode root2)</span> </span>&#123;</span><br><span class="line">        List&lt;Integer&gt; list1 = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        List&lt;Integer&gt; list2 = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        inorder(root1, list1);</span><br><span class="line">        inorder(root2, list2);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> merge(list1, list2);</span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">inorder</span><span class="params">(TreeNode node, List&lt;Integer&gt; list)</span> </span>&#123;<span class="comment">//中序遍历存入list</span></span><br><span class="line">        <span class="keyword">if</span>(node == <span class="keyword">null</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">        inorder(node.left, list);</span><br><span class="line">        list.add(node.val);</span><br><span class="line">        inorder(node.right, list);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> List&lt;Integer&gt; <span class="title">merge</span><span class="params">(List&lt;Integer&gt; list1, List&lt;Integer&gt; list2)</span> </span>&#123;</span><br><span class="line">        List&lt;Integer&gt; rtn = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">int</span> size1 = list1.size();</span><br><span class="line">        <span class="keyword">int</span> size2 = list2.size();</span><br><span class="line">        <span class="keyword">int</span> idx1 = <span class="number">0</span>, idx2 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(idx1 &lt; size1 &amp;&amp; idx2 &lt; size2) &#123; <span class="comment">//merge操作</span></span><br><span class="line">            <span class="keyword">int</span> num1 = list1.get(idx1);</span><br><span class="line">            <span class="keyword">int</span> num2 = list2.get(idx2);</span><br><span class="line">            <span class="keyword">if</span>(num1 &lt; num2) &#123;</span><br><span class="line">                rtn.add(num1);</span><br><span class="line">                idx1++;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                rtn.add(num2);</span><br><span class="line">                idx2++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(idx1 &lt; size1) &#123;</span><br><span class="line">            rtn.add(list1.get(idx1++));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(idx2 &lt; size2) &#123;</span><br><span class="line">            rtn.add(list2.get(idx2++));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> rtn;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：遍历两个链表 O( N ) 的复杂度，merge 操作 O( N ) 的复杂度，最终，T( N ) = O( N )</p>
-<p>空间复杂度：需要存下所有的节点， S( N ) = O( N )</p>
-<h4 id="法三：Merging-while-traversal"><a href="#法三：Merging-while-traversal" class="headerlink" title="法三：Merging while traversal"></a>法三：Merging while traversal</h4><p>法二已经利用了 BST 的相关性质，将 O( NlogN ) 的复杂度下降到了 O(N) ，但是其中对两棵树的元素其实进行了两次遍历。我们能否做到一次遍历就出结果来呢？也就是，在遍历的同时进行 merge 操作，遍历结束时，答案也出来了。</p>
-<p>解法：</p>
-<ol>
-<li>用两个栈来实现遍历两棵树的左子树，一边遍历一遍压栈，在未访问到右子树时，栈顶保存着当前树最小的元素（当然，未访问了右子树后栈顶元素也是最小的，只是此时还没开始处理右子树）；</li>
-<li>比较两个栈的栈顶，栈顶小的弹出元素到 ans 列表中；依次比较直到两个栈空；</li>
-<li>接着继续访问右子树，对它做相同的操作(遍历，比较栈顶)。直到整棵树被访问完，</li>
-</ol>
-<p>code：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">getAllElements</span><span class="params">(TreeNode root1, TreeNode root2)</span> </span>&#123;</span><br><span class="line">        List&lt;Integer&gt; ans = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">        Stack&lt;TreeNode&gt; s1 = <span class="keyword">new</span> Stack&lt;TreeNode&gt;();</span><br><span class="line">        Stack&lt;TreeNode&gt; s2 = <span class="keyword">new</span> Stack&lt;TreeNode&gt;();</span><br><span class="line">        Smallest(root1,s1);</span><br><span class="line">        Smallest(root2,s2);</span><br><span class="line"></span><br><span class="line">        Stack&lt;TreeNode&gt; s;</span><br><span class="line">        <span class="keyword">while</span>(!s1.isEmpty() || !s2.isEmpty())&#123;</span><br><span class="line">            <span class="keyword">if</span>(!s1.isEmpty())</span><br><span class="line">                 s = s1;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(!s2.isEmpty())</span><br><span class="line">                 s = s2;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span>(s1.peek().val &lt; s2.peek().val) <span class="comment">//这个if，仅仅是为了下面弹出元素时方便确定弹出谁的栈顶</span></span><br><span class="line">                s = s1;</span><br><span class="line">            <span class="keyword">else</span> s = s2;</span><br><span class="line"></span><br><span class="line">            TreeNode temp = s.pop();</span><br><span class="line">            ans.add(temp.val);</span><br><span class="line">            Smallest(temp.right,s); <span class="comment">//对当前temp的右边节点进行压栈操作。 //此temp可能来自s1 or s2</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Smallest</span><span class="params">(TreeNode root,Stack&lt;tre s)</span></span>&#123;  <span class="comment">//将root的最小值一直压栈</span></span><br><span class="line">        <span class="keyword">if</span>(root == <span class="keyword">null</span>) <span class="keyword">return</span>;</span><br><span class="line">        s.push(root);</span><br><span class="line">        Smallest(root.left,s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：遍历两个链表 O( N ) 的复杂度，merge 操作 O( 1 ) 的复杂度，最终，T( N ) = O( N )</p>
-<p>空间复杂度：需要存下所有的节点， S( N ) = O( N )</p>
-<p>法三相比法二，仅仅遍历一遍两棵树就得到了结果，虽然同是 O( N ) 的复杂度，但是速度更快噢。</p>
-
+<p>请你返回一个列表，其中包含 两棵树 中的所有整数并按升序排序。.</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/03/06/%E4%B8%A4%E6%A3%B5%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%E5%85%83%E7%B4%A0/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -390,7 +411,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-03-06 18:18:08" itemprop="dateModified" datetime="2020-03-06T18:18:08+08:00">2020-03-06</time>
+                <time title="Modified: 2020-03-07 13:48:17" itemprop="dateModified" datetime="2020-03-07T13:48:17+08:00">2020-03-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -416,72 +437,14 @@
           <h2 id="一、并查集"><a href="#一、并查集" class="headerlink" title="一、并查集"></a>一、并查集</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>并查集，顾名思义，是主要提供两个操作：“并” ，”查“的集合，函数功能如下：</p>
 <p>Union(A,B) ：将 A 和 B 所在的集合合并。将 size 小的合并到 size 大的集合中。</p>
 <p>isSameSet(A,B) : 返回A 和 B 所在的集合是否是同一个集合。</p>
-<p>在并查集中，每个元素节点有一个 value 和 P 指针，P 指向上一级节点。</p>
-<p><strong>代表点</strong>：以代表点来代表该集合。例如用链表的head来代表该链表的意思。</p>
-<h3 id="Union演示"><a href="#Union演示" class="headerlink" title="Union演示"></a>Union演示</h3><ol>
-<li>初始状态时，各个节点的 P 指向自身。当发生节点合并时，如1 和 2 合并，则 1 的 P 指针指向2 。如下图：</li>
-</ol>
-<p><img src="/images/tu1.JPG" alt="tu1"></p>
-<center>图1 初始状态</center>
-
-<ol start="2">
-<li>当 1 和 2 合并，12 和 3 合并时，如下：</li>
-</ol>
-<p><img src="/images/tu2.JPG" alt="tu2"></p>
-<center>图2 1和2合并</center>
-
-<ol start="3">
-<li>12 和 3 合并，如下：</li>
-</ol>
-<p><img src="/images/tu3.JPG" alt="tu3"></p>
-<center>图3  12和3合并</center>
-
-
-
-<h3 id="isSameSet演示"><a href="#isSameSet演示" class="headerlink" title="isSameSet演示"></a>isSameSet演示</h3><p>发生合并后，怎样判断两个节点是否是同一个集合？</p>
-<p>——从该节点出发，利用 P 不断向上找节点，直到 P 指向自身时，返回该节点，即为此集合的代表点。</p>
-<p>若 A代 == B代 ，则 A 和 B在同一个集合中；不等，则不在。</p>
-<h3 id="优化——路径压缩"><a href="#优化——路径压缩" class="headerlink" title="优化——路径压缩"></a>优化——路径压缩</h3><p>也叫扁平化处理。在 查询操作 isSameSet(A,B) 的过程中，A 沿途的链所有节点都打平，B 沿途的链也打平 ，再返回true / false 。【为后续的查询操作加快速度】</p>
-<p><img src="/images/tu4.png" alt="tu4"></p>
-<center>图4  扁平化处理</center>
-
-<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><p>注意：必须一开始就拿到所有数据，而不是动态的增加数据</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">public class Data&#123;</span><br><span class="line">	&#x2F;&#x2F;填啥都行，为了封装数据而已 以int为例</span><br><span class="line">	public int value;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class UnionFindSet&#123;</span><br><span class="line">	public HashMap&lt;Data,Data&gt; fatherMap;  &#x2F;&#x2F;(key,value)表示key的父节点是value</span><br><span class="line">	public HashMap&lt;Data,Integer&gt; sizeMap; &#x2F;&#x2F;(key,int)只有在key是此集合的代表节点时，int表示此集合的size ； 否则无意义</span><br><span class="line"></span><br><span class="line">	public UnionFindSet(List&lt;Data&gt; nodes)&#123;</span><br><span class="line">		fatherMap &#x3D; new HashMap&lt;Data,Data&gt;();</span><br><span class="line">		sizeMap &#x3D; new HashMap&lt;Data,Integer&gt;();</span><br><span class="line">		makeSets(nodes);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	private void makeSets(List&lt;Data&gt; nodes)&#123; &#x2F;&#x2F;构建集合</span><br><span class="line">		fatherMap.clear();</span><br><span class="line">		sizeMap.clear();</span><br><span class="line">		for(Data node : nodes)&#123;</span><br><span class="line">			fatherMap.put(node,node); &#x2F;&#x2F;指向自身</span><br><span class="line">			sizeMap.put(node,1); &#x2F;&#x2F;size &#x3D; 1</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	private Data findRepresent(Data node)&#123; &#x2F;&#x2F;查询node的代表点的同时，将node挂到代表点上</span><br><span class="line">		Data father &#x3D; fatherMap.get(node);</span><br><span class="line">		if(father !&#x3D; node)&#123;</span><br><span class="line">			father &#x3D; findRepresent(father);</span><br><span class="line">		&#125;</span><br><span class="line">		fatherMap.put(node,father);</span><br><span class="line">		return father;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public boolean isSameSet(Data a, Data b)&#123;&#x2F;&#x2F;返回a，b是否在同一个集合中</span><br><span class="line">		return findRepresent(a) &#x3D;&#x3D; findRepresent(b);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void union(Data a, Data b)&#123; &#x2F;&#x2F; 合并a，b所在集合</span><br><span class="line">		if(a &#x3D;&#x3D; null || b &#x3D;&#x3D; null)&#123;</span><br><span class="line">			return;</span><br><span class="line">		&#125;</span><br><span class="line">		Data aRepresent &#x3D; findRepresent(a);</span><br><span class="line">		Data bRepresent &#x3D; findRepresent(b);</span><br><span class="line">		if(aRepresent !&#x3D; bRepresent)&#123; &#x2F;&#x2F;a b的代表结构不同才会发生合并操作</span><br><span class="line">			int aSetSize &#x3D; sizeMap.get(aRepresent);</span><br><span class="line">			int bSetSize &#x3D; sizeMap.get(bRepresent);</span><br><span class="line">			if(aSetSize &lt;&#x3D; bSetSize)&#123; &#x2F;&#x2F;size小的挂到大的上</span><br><span class="line">				fatherMap.put(aRepresent,bRepresent);</span><br><span class="line">				sizeMap.put(bRepresent,aSetSize+bSetSize);</span><br><span class="line">			&#125;else&#123;</span><br><span class="line">				fatherMap.put(bRepresent,aRepresent);</span><br><span class="line">				sizeMap.put(aRepresent,aSetSize+bSetSize);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h3><p>注：某大牛从1964年证明到1989年，整整25年才证明出这个结构有多牛逼。</p>
-<p>当元素个数到 O(N) 数量级时，若<strong>查询次数+合并次数</strong>（因为合并中也包含着查询）达到 O(N) 及其以上，则平均单次查询/合并的复杂度是 O(1) 级别。</p>
-<p>有点绕是吧？就是说，如果有10000个节点，我们查询或者合并的次数达到了 10000 次或者 $10000^2$ 及其以上，则平均下来再次查询/合并的代价是 O( α(N) ) 。</p>
-<p>其中，α(N) 是个成长极其缓慢的函数。可否具体？当 N 达到  10^80 （目前人类已经探明的总原子数）时，α(N) 返回值不会超过 6 ，所以可以看作是 O(1) 的代价。</p>
-<hr>
-<h2 id="二、前缀树"><a href="#二、前缀树" class="headerlink" title="二、前缀树"></a>二、前缀树</h2><h3 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h3><p>英文：trie tree / prefix tree。前缀树是用于保存关联数组的数据结构，简单一点地说，它可以很快速的返回两个字符串是否有相同的前缀内容。更详细的定义见：<a href="https://zh.wikipedia.org/wiki/Trie" target="_blank" rel="noopener">维基百科的定义</a></p>
-<p>如果您没看懂，看一下下面的图就知道什么意思了。</p>
-<p><img src="/images/tu5.png" alt="前缀树简介">    </p>
-<center>图5 前缀树简介</center>
-
-
-
-<h3 id="封装节点："><a href="#封装节点：" class="headerlink" title="封装节点："></a>封装节点：</h3><p>pass：表示有多少个节点经过本节点（共享本节点的字符串数量）</p>
-<p>end： 表示有多少字符以这个节点结尾（最下面的节点 end=1，越往上end越大）</p>
-<p>nexts[] :用于保存这个节点。</p>
-<h3 id="有什么用？"><a href="#有什么用？" class="headerlink" title="有什么用？"></a>有什么用？</h3><p>也许你还是不知道这个数据结构可以干嘛。那么思考一下这个问题：<strong>查询 ”helo“ 是否在集合中出现过？</strong>  </p>
-<p>常规的思路不外乎三种：1.遍历整个集合来看；2.在保存这个集合时就用 hashmap 来进行存储。</p>
-<p>而如果是使用<strong>前缀树</strong>的思路：依次看 ‘h’ , ‘e’ , ‘l’ , ‘o’ 这些节点有没有在树中出现过。  </p>
-<p><img src="/images/tu6.png" alt="寻找helo"></p>
-<center>图6 寻找helo</center>
-
-<p>如果该树没有保存 ‘helo’，那么到 ‘hel’时，算法就会结束；保存了后，则会正常的找到。而这个过程中的时间复杂度，仅仅和<strong><em>要查找的单词长度</em></strong>有关系。</p>
-<h3 id="Code-1"><a href="#Code-1" class="headerlink" title="Code"></a>Code</h3><p>为了实现得简单一些，约定总共就26个小写字母，所以可以用数组来写了。(如果是更复杂的情况，可以替换为 HashMap )。</p>
-<p>代码中的index作用：用下一个节点对应的ASCII码来的位置置为 1 ，表示该字母被保存。比如：下一个节点指向 ‘a’ ，则 nexts[0] = 下一个节点 ; 指向 ‘z’ ，则 nexts[25] = 下一个节点。</p>
-<p>具体代码如下，已经加了注释，不懂的欢迎留言：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TrieNode</span></span>&#123;  <span class="comment">//前缀树中封装的单个节点</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">int</span> pass; <span class="comment">//表示有多少个节点经过本节点（共享本节点的字符串数量）</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">int</span> end; <span class="comment">// 表示有多少字符以这个节点结尾</span></span><br><span class="line">	<span class="keyword">public</span> TrieNode[] nexts; </span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">TrieNode</span><span class="params">()</span></span>&#123;</span><br><span class="line">		pass = <span class="number">0</span>;</span><br><span class="line">		end = <span class="number">0</span>;</span><br><span class="line">		nexts = <span class="keyword">new</span> TrieNode[<span class="number">26</span>]; <span class="comment">//默认只有26个字母。若是中文改为Map</span></span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Trie</span></span>&#123;  <span class="comment">//前缀树</span></span><br><span class="line">	<span class="keyword">private</span> TrieNode root;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Trie</span><span class="params">()</span></span>&#123;</span><br><span class="line">		root = <span class="keyword">new</span> TrieNode();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(String word)</span></span>&#123; <span class="comment">//往树中插入 word</span></span><br><span class="line">		<span class="keyword">if</span>(word == <span class="keyword">null</span>)&#123;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">char</span>[] chs = word.toCharArray();</span><br><span class="line">		TrieNode node = root;</span><br><span class="line">		<span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; chs.length; i++)&#123;</span><br><span class="line">			index = chs[i] -<span class="string">'a'</span>;</span><br><span class="line">			<span class="keyword">if</span>(node.nexts[index] == <span class="keyword">null</span>)&#123;</span><br><span class="line">				node.nexts[index] = <span class="keyword">new</span> TrieNode();</span><br><span class="line">			&#125;</span><br><span class="line">			node = node.nexts[index];</span><br><span class="line">			node.pass++;<span class="comment">//沿途pass++，说明本节点被共享的次数增加了</span></span><br><span class="line">		&#125;</span><br><span class="line">		node.end++;	<span class="comment">//以本节点结束的字符串++	</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(String word)</span></span>&#123; <span class="comment">//沿途node.pass-- 可以更好</span></span><br><span class="line">		<span class="keyword">if</span>(search(word) != <span class="number">0</span>)&#123; <span class="comment">//要删除的元素存在</span></span><br><span class="line">			<span class="keyword">char</span>[] chs = word.toCharArray();</span><br><span class="line">			TrieNode node = root;</span><br><span class="line">			<span class="keyword">int</span> index = <span class="number">0</span> ;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; chs.length; i++)&#123;</span><br><span class="line">				index = chs[i] - <span class="string">'a'</span>;</span><br><span class="line">				<span class="keyword">if</span>(--node.nexts[index].pass == <span class="number">0</span>)&#123;</span><br><span class="line">					node.nexts[index] = <span class="keyword">null</span>;</span><br><span class="line">					<span class="keyword">return</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				node = node.nexts[index];</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		node.end--;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">search</span><span class="params">(String word)</span></span>&#123; <span class="comment">//查询word是否出现过</span></span><br><span class="line">		<span class="keyword">if</span>(word == <span class="keyword">null</span>)&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">char</span>[] chs = word.toCharArray();</span><br><span class="line">		TrieNode node = root;<span class="comment">//从根开始找</span></span><br><span class="line">		<span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; chs.length; i++)&#123;</span><br><span class="line">			index = chs[i] - <span class="string">'a'</span>;</span><br><span class="line">			<span class="keyword">if</span>(node.nexts[index] = <span class="keyword">null</span>)&#123;	</span><br><span class="line">				<span class="keyword">return</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			node = node.nexts[index];</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> node.end;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">prefixNumber</span><span class="params">(String pre)</span></span>&#123; <span class="comment">//返回以pre为前缀的字符串数</span></span><br><span class="line">		<span class="keyword">if</span>(pre == <span class="keyword">null</span>)&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">char</span>[] chs = pre.toCharArray();</span><br><span class="line">		TrieNode node = root;<span class="comment">//从根开始找</span></span><br><span class="line">		<span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; chs.length; i++)&#123;</span><br><span class="line">			index = chs[i] - <span class="string">'a'</span>;</span><br><span class="line">			<span class="keyword">if</span>(node.nexts[index] = <span class="keyword">null</span>)&#123;	</span><br><span class="line">				<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			node = node.nexts[index];</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> node.pass; </span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><p>插入，删除，查询都只需要目标字符串的长度时间，即 T( N ) = O( N )</p>
-<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><p>图、字符串中的很多操作都可以用到前缀树，后续的文章中会一一讲解，敬请期待。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/03/05/%E5%AF%92%E5%81%87%E6%92%B8%E7%AE%97%E6%B3%95%E4%B9%8B%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86-%E5%89%8D%E7%BC%80%E6%A0%91/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -735,6 +698,87 @@
   
   
 
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/07/%E4%BA%94%E5%AD%90%E6%A3%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Mathkey">
+      <meta itemprop="description" content="所有东西都是技术问题，你写不出来是缺乏练习而不是笨">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mathkey's site">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/07/07/%E4%BA%94%E5%AD%90%E6%A3%8B/" class="post-title-link" itemprop="url">实现自己的五子棋（一）——画出五子棋界面</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-07-07 10:51:30" itemprop="dateCreated datePublished" datetime="2018-07-07T10:51:30+08:00">2018-07-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-07-08 10:18:54" itemprop="dateModified" datetime="2018-07-08T10:18:54+08:00">2018-07-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>喜欢在网上下五子棋吗？？是不是每次只能在网上用别人的程序来下呢？Now，从这篇 Blog 开始，让我们一起来实现自己的五子棋程序，去和朋友们一起 happy 吧！当然，只是在本地玩的。不过，如果你看了后续我写的关于网络通信的文章，相信你也可以实现在网上下棋的程序。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/07/07/%E4%BA%94%E5%AD%90%E6%A3%8B/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
   </div>
 
   
@@ -802,7 +846,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -815,7 +859,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
