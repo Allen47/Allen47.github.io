@@ -1,8 +1,8 @@
 ---
-title: 栈操作（一）
+title: 寒假撸算法之（三）—— 栈操作（一）
 date: 2020-03-08 23:12:45
 tags: [Java,stack]
-categories: 每日刷题
+categories: 数据结构和算法
 ---
 
 
