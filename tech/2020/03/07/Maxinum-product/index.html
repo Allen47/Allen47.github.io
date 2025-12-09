@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/tech/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/tech/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/tech/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/tech/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/tech/css/main.css">
+
+
+<link rel="stylesheet" href="/tech/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/tech/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="【LeetCode】1339. 分裂二叉树的最大乘积给你一棵二叉树，它的根为 root 。请你删除 1 条边，使二叉树分裂成两棵子树，且它们子树和的乘积尽可能大。 由于答案可能会很大，请你将结果对 10^9 + 7 取模后再返回。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Maxinum product of Splitted Binary Tree">
+<meta property="og:url" content="http://yoursite.com/2020/03/07/Maxinum-product/index.html">
+<meta property="og:site_name" content="Mathkey&#39;s site">
+<meta property="og:description" content="【LeetCode】1339. 分裂二叉树的最大乘积给你一棵二叉树，它的根为 root 。请你删除 1 条边，使二叉树分裂成两棵子树，且它们子树和的乘积尽可能大。 由于答案可能会很大，请你将结果对 10^9 + 7 取模后再返回。">
+<meta property="og:image" content="http://yoursite.com/images/tr1.png">
+<meta property="og:image" content="http://yoursite.com/images/tr2.png">
+<meta property="article:published_time" content="2020-03-07T12:50:51.000Z">
+<meta property="article:modified_time" content="2020-03-07T14:03:48.109Z">
+<meta property="article:author" content="Mathkey">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="medium">
+<meta property="article:tag" content="tree">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/images/tr1.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/03/07/Maxinum-product/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>Maxinum product of Splitted Binary Tree | Mathkey's site</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/tech/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mathkey's site</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/tech/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/tech/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tech/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/tech/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/tech/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/Maxinum-product/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/tech/images/avatar.gif">
+      <meta itemprop="name" content="Mathkey">
+      <meta itemprop="description" content="所有东西都是技术问题，你写不出来是缺乏练习而不是笨">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mathkey's site">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Maxinum product of Splitted Binary Tree
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-03-07 20:50:51 / Modified: 22:03:48" itemprop="dateCreated datePublished" datetime="2020-03-07T20:50:51+08:00">2020-03-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/tech/categories/%E6%AF%8F%E6%97%A5%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">每日刷题</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="【LeetCode】1339-分裂二叉树的最大乘积"><a href="#【LeetCode】1339-分裂二叉树的最大乘积" class="headerlink" title="【LeetCode】1339. 分裂二叉树的最大乘积"></a><a href="https://leetcode-cn.com/problems/maximum-product-of-splitted-binary-tree/" target="_blank" rel="noopener">【LeetCode】1339. 分裂二叉树的最大乘积</a></h2><p>给你一棵二叉树，它的根为 root 。请你删除 1 条边，使二叉树分裂成两棵子树，且它们子树和的乘积尽可能大。</p>
+<p>由于答案可能会很大，请你将结果对 10^9 + 7 取模后再返回。</p>
+<a id="more"></a>
+
+<p>示例 1：</p>
+<p><img src="/tech/images/tr1.png" alt="image1"></p>
+<blockquote>
+<p>输入：root = [1,2,3,4,5,6]
+输出：110
+解释：删除红色的边，得到 2 棵子树，和分别为 11 和 10 。它们的乘积是 110 （11*10）</p>
+</blockquote>
+<p>示例 2：</p>
+<p><img src="/tech/images/tr2.png" alt="image1"></p>
+<blockquote>
+<p>输入：root = [1,null,2,3,4,null,null,5,6]
+输出：90
+解释：移除红色的边，得到 2 棵子树，和分别是 15 和 6 。它们的乘积为 90 （15*6）</p>
+</blockquote>
+<p>示例 3：</p>
+<blockquote>
+<p>输入：root = [2,3,9,10,7,8,6,5,4,11,1]
+输出：1025</p>
+</blockquote>
+<p>示例 4：</p>
+<blockquote>
+<p>输入：root = [1,1]
+输出：1</p>
+</blockquote>
+<p>提示：</p>
+<p>每棵树最多有 50000 个节点，且至少有 2 个节点。
+每个节点的值在 [1, 10000] 之间</p>
+<hr>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ol>
+<li><p>定义一个求和函数求整棵树的和 S 【这里的树随着遍历的过程在不断的改变】；</p>
+</li>
+<li><p>定义一个遍历的函数，在遍历的过程中求划分后左部分树的和 Sl ，则右边剩余部分的和为 (S - Sl)；用一个全局遍历 ans ，在遍历过程中不断更新 ans = max{ (S - Sl)* Sl ,(S -Sr )*Sr }；</p>
+</li>
+<li><p>return (r -&gt; val + Sl + Sr);</p>
+</li>
+<li><p>最后答案 ans = ans % (10^9 + 7)。</p>
+</li>
+</ol>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">double</span> Kmod =  Math.pow(<span class="number">10</span>,<span class="number">9</span>)+<span class="number">7</span> ;</span><br><span class="line">    <span class="keyword">long</span> s = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">long</span> ans = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">TreeSum</span><span class="params">(TreeNode r)</span></span>&#123;  <span class="comment">//求以r为根的树上所有节点值之和</span></span><br><span class="line">        <span class="keyword">if</span>(r == <span class="keyword">null</span>)    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> r.val + TreeSum(r.left)+TreeSum(r.right);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">solve</span><span class="params">(TreeNode r)</span></span>&#123; <span class="comment">//以r为根节点的树，</span></span><br><span class="line">        <span class="keyword">if</span>(r == <span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> sl = solve(r.left);</span><br><span class="line">        <span class="keyword">int</span> sr = solve(r.right);</span><br><span class="line">        ans = Math.max(Math.max((s-sl)*sl,(s-sr)*sr),ans);</span><br><span class="line">        <span class="keyword">return</span> r.val + sl + sr;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxProduct</span><span class="params">(TreeNode root)</span> </span>&#123; <span class="comment">//主函数</span></span><br><span class="line">        <span class="comment">// long s = 0;</span></span><br><span class="line">        <span class="comment">// long ans = 0;</span></span><br><span class="line">        <span class="keyword">this</span>.s = TreeSum(root);</span><br><span class="line">        solve(root);</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">int</span>)(ans % Kmod );</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：遍历了整棵树，T(n) = O(n)</p>
+<p>空间复杂度：保存了整n棵树的信息，S(n) = O(n)</p>
+<h2 id="难点"><a href="#难点" class="headerlink" title="难点"></a>难点</h2><p>我个人第一次看这个代码时没想通的点，为啥要定义两个求和函数，而不是共用一个就行。</p>
+<p>后来我想了一下，TreeSum（root）是求出整棵树的节点和后，将结果保存在了 s 中；分裂子树的操作放在了 Solve(sum) 中，而 s 的值一直是不变的，不断更新 ans 的操作也放在 Sovle(root) 中。(ans = { ans , (s-sl)*sl,(s-sr)*sr )</p>
+<p>俺也不知道这样讲说清楚没，等以后技术精进了再重新修改一下吧，各位看官大人勉强看看。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tech/tags/Java/" rel="tag"># Java</a>
+              <a href="/tech/tags/medium/" rel="tag"># medium</a>
+              <a href="/tech/tags/tree/" rel="tag"># tree</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/tech/2020/03/06/%E4%B8%A4%E6%A3%B5%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%E5%85%83%E7%B4%A0/" rel="prev" title="两棵二叉搜索树中的所有元素">
+      <i class="fa fa-chevron-left"></i> 两棵二叉搜索树中的所有元素
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/tech/2020/03/08/stack1/" rel="next" title="寒假撸算法之（三）—— 栈操作（一）">
+      寒假撸算法之（三）—— 栈操作（一） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#【LeetCode】1339-分裂二叉树的最大乘积"><span class="nav-text">【LeetCode】1339. 分裂二叉树的最大乘积</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思路"><span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Code"><span class="nav-text">Code</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#难点"><span class="nav-text">难点</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Mathkey</p>
+  <div class="site-description" itemprop="description">所有东西都是技术问题，你写不出来是缺乏练习而不是笨</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/tech/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/tech/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tech/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mathkey</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1
+  </div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/tech/lib/anime.min.js"></script>
+  <script src="/tech/lib/velocity/velocity.min.js"></script>
+  <script src="/tech/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/tech/js/utils.js"></script>
+
+<script src="/tech/js/motion.js"></script>
+
+
+<script src="/tech/js/schemes/muse.js"></script>
+
+
+<script src="/tech/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

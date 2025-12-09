@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/tech/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/tech/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/tech/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/tech/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/tech/css/main.css">
+
+
+<link rel="stylesheet" href="/tech/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/tech/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="好了经过了一波丧心病狂的投简历风波，各个公司陆陆续续开始面试了。本文记录一下最近百度一面的面经，有的问题没答上来，也 google 到了答案。是记录，也是为了后续的 offer 蓄力。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="百度一面面经">
+<meta property="og:url" content="http://yoursite.com/2020/03/18/%E7%99%BE%E5%BA%A6%E4%B8%80%E9%9D%A2/index.html">
+<meta property="og:site_name" content="Mathkey&#39;s site">
+<meta property="og:description" content="好了经过了一波丧心病狂的投简历风波，各个公司陆陆续续开始面试了。本文记录一下最近百度一面的面经，有的问题没答上来，也 google 到了答案。是记录，也是为了后续的 offer 蓄力。">
+<meta property="og:image" content="http://yoursite.com/images/webp.png">
+<meta property="article:published_time" content="2020-03-18T09:27:31.000Z">
+<meta property="article:modified_time" content="2020-03-20T13:58:00.766Z">
+<meta property="article:author" content="Mathkey">
+<meta property="article:tag" content="面经">
+<meta property="article:tag" content="百度">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/images/webp.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/03/18/%E7%99%BE%E5%BA%A6%E4%B8%80%E9%9D%A2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>百度一面面经 | Mathkey's site</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/tech/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mathkey's site</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/tech/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/tech/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tech/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/tech/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/tech/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/18/%E7%99%BE%E5%BA%A6%E4%B8%80%E9%9D%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/tech/images/avatar.gif">
+      <meta itemprop="name" content="Mathkey">
+      <meta itemprop="description" content="所有东西都是技术问题，你写不出来是缺乏练习而不是笨">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mathkey's site">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          百度一面面经
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-03-18 17:27:31" itemprop="dateCreated datePublished" datetime="2020-03-18T17:27:31+08:00">2020-03-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-20 21:58:00" itemprop="dateModified" datetime="2020-03-20T21:58:00+08:00">2020-03-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/tech/categories/%E9%9D%A2%E7%BB%8F/" itemprop="url" rel="index"><span itemprop="name">面经</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>好了经过了一波丧心病狂的投简历风波，各个公司陆陆续续开始面试了。本文记录一下最近百度一面的面经，有的问题没答上来，也 google 到了答案。是记录，也是为了后续的 offer 蓄力。</p>
+<a id="more"></a>
+
+<p>很多问题的答案其实可以单独写成一篇 Blog 来详细讲解的，本文仅仅起到一个抛砖引玉的作用，毕竟面试时由于各种因素也不可能面面俱到，还请读者们自行就感兴趣的问题进行深究。</p>
+<h3 id="1、自我介绍，项目介绍，实习介绍"><a href="#1、自我介绍，项目介绍，实习介绍" class="headerlink" title="1、自我介绍，项目介绍，实习介绍"></a>1、自我介绍，项目介绍，实习介绍</h3><p>这部分就略过了（后续的文章这部分也不再出现）。</p>
+<h3 id="2、https-和-http区别？为什么https可以实现安全？SSL是怎样保证安全的？"><a href="#2、https-和-http区别？为什么https可以实现安全？SSL是怎样保证安全的？" class="headerlink" title="2、https 和 http区别？为什么https可以实现安全？SSL是怎样保证安全的？"></a>2、https 和 http区别？为什么https可以实现安全？SSL是怎样保证安全的？</h3><p>区别：</p>
+<ul>
+<li>https 需要 CA 证书，一般免费的很少，需要交费</li>
+<li>http 明文传输；https 是具有安全性的 ssl 加密传输</li>
+<li>http 和 https 使用的端口，前者80，后者443</li>
+<li>http的连接很简单，是无状态的；HTTPS协议是由SSL+HTTP协议构建的可进行加密传输、身份认证的网络协议，比http协议安全。</li>
+</ul>
+<p>https 是以安全为目标的 http 通道，简单的说是 http 的安全版。即HTTP下加入SSL层，HTTPS的安全基础是SSL，因此加密的详细内容就需要SSL。主要用到对称加密、非对称加密、证书，等技术进行客户端与服务器的数据加密传输，最终达到保证整个通信的安全性。</p>
+<p>作用：内容加密；身份认证；数据完整性（防止被冒充 or 篡改）【“数字摘要“是https能确保数据完整性和防篡改的根本原因。】</p>
+<p>https 的劣势：因为需要对数据加密【<strong><u>需要对会话密钥进行非对称的加解密，再对数据本身进行对称的加解密，且需要三次握手</u></strong>】，所以比 http 慢。</p>
+<hr>
+<h3 id="3、了解php吗？"><a href="#3、了解php吗？" class="headerlink" title="3、了解php吗？"></a>3、了解php吗？</h3><p>用过，了解基本用法。【这题答案略了，没意思】</p>
+<hr>
+<h3 id="4、进程间通信的方式"><a href="#4、进程间通信的方式" class="headerlink" title="4、进程间通信的方式"></a>4、进程间通信的方式</h3><ul>
+<li>匿名管道（pipe）：在内核中开辟一个数据缓冲区，只支持单向数据流的流动，按照先进先出的方式从缓存区存取数据。局限性主要有：仅支持单向的数据流，且只能用于具有亲缘关系的进程间通信；缓冲区容量有限，传输的是无格式的字节流。</li>
+</ul>
+<ul>
+<li>有名管道（FIFO）：不同于匿名管道，它提供了一个路径名与之关联，使得<strong>有名管道名字以文件的形式存在文件系统中【但内容存在内存中】</strong>。就算没有亲缘关系的进程，只要能访问到路径就能进行通信。也遵循先进先出。</li>
+</ul>
+<ul>
+<li>信号（Signal）：Linux 系统中的机制，信号可以在任何时候发给另一个进程（就算该进程没执行，此信号会被内核保存直到进程恢复执行并传递给它）。Linux 有很多 signal，如：SIGHUP、SIGINT等等，这部分内容较多，请读者自行查看。</li>
+</ul>
+<ul>
+<li><p>消息队列（Message Queue）：</p>
+<ul>
+<li>MQ 是存放在内核中的消息链表，每个 MQ 由标识符表示。</li>
+<li>MQ 与管道的区别在于，管道存在内存或者文件系统中，而 MQ 存在内核中。</li>
+<li>消息队列在某个进程往一个队列写入消息之前，并不需要另外某个进程在该队列上等待消息的到达。</li>
+<li>目前主要有两种类型的消息队列：POSIX消息队列以及System V消息队列，系统V消息队列目前被大量使用。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>共享内存（share memory）：多个进程直接读写同一片内存区域，是最快的可用 IPC 形式，效率很高。由于共享了一片内存，所以需要用某种共享机制（信号量等）来达到进程的同步和互斥。</li>
+</ul>
+<ul>
+<li><p>信号量（semaphore）：是一个计数器，用于多进程对共享数据的访问。常常作为一种锁机制，达到同步、互斥的目的。</p>
+<ul>
+<li><strong>互斥：</strong>是指某一资源同时只允许一个访问者对其进行访问，具有唯一性和排它性。但互斥无法限制访问者对资源的访问顺序，即访问是无序的。
+<strong>同步：</strong>是指在互斥的基础上（大多数情况），通过其它机制实现访问者对资源的有序访问。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>套接字（socket）：是一种通信机制，写过网络通信的朋友都应该有印象。凭借这种机制可以进行 C/S 系统的开发，即可在本机进行，也可在网络中进行。</p>
+<p><img src="/tech/images/webp.png" alt="套接字的建立"></p>
+</li>
+</ul>
+<center>图1 套接字的建立</center>
+
+<hr>
+<h3 id="5、听过Nginx吗？是用来干嘛的"><a href="#5、听过Nginx吗？是用来干嘛的" class="headerlink" title="5、听过Nginx吗？是用来干嘛的"></a>5、听过Nginx吗？是用来干嘛的</h3><p>Nginx 是一个开源的，支持高性能、高并发的 web 服务和代理服务软件。</p>
+<p>作用：</p>
+<ul>
+<li>高速高并发访问：它可以对静态资源高速高并发访问以及缓存，能支持几万个并发连接。</li>
+<li>反向代理：可以使用反向代理加速</li>
+<li>负载均衡：具有简单的负载均衡、节点健康检查和容错功能</li>
+<li>资源消耗少：在 3w  的并发量时，开启 10 个 Nginx 线程所消耗的内存不到 200 MB</li>
+<li>支持异步网络 I/O 事件模型。</li>
+</ul>
+<hr>
+<h3 id="6、在选择服务器上，如何选择合适的服务器？"><a href="#6、在选择服务器上，如何选择合适的服务器？" class="headerlink" title="6、在选择服务器上，如何选择合适的服务器？"></a>6、在选择服务器上，如何选择合适的服务器？</h3><ul>
+<li>静态业务：若是高并发场景，尽量采用 Nginx 或 Lighttpd ，首选 Nginx。</li>
+<li>动态业务：理论上采用 Nginx 和 Apache 均可，建议选择 Nginx，为了避免相同业务服务软件多样化，增加额外维护成本。动态业务可以由 Nginx 兼做前端代理，再根据页面元素的类型或目录，转发到后端相应的服务器进行处理。</li>
+<li>既有静态又有动态业务：采用 Nginx。</li>
+</ul>
+<hr>
+<h3 id="7、介绍一下-MVC-模式"><a href="#7、介绍一下-MVC-模式" class="headerlink" title="7、介绍一下 MVC 模式"></a>7、介绍一下 MVC 模式</h3><p>MVC 模式是软件工程中的一种软件架构模式，它把软件划分为三个基本部分：</p>
+<ul>
+<li>控制器（Controller）：负责处理消息</li>
+<li>视图（View）：负责显示数据</li>
+<li>模型（Model）：负责数据访问，即访问数据库</li>
+</ul>
+<p>在良好的职责分离的设计下，各个部分可独立行使<a href="https://zh.wikipedia.org/wiki/单元测试" target="_blank" rel="noopener">单元测试</a>，有利于与企业内的自动化测试、<a href="https://zh.wikipedia.org/wiki/持續整合" target="_blank" rel="noopener">持续集成</a>与<a href="https://zh.wikipedia.org/w/index.php?title=持續發行&action=edit&redlink=1" target="_blank" rel="noopener">持续发行</a> 流程集成，减少应用程序改版部署所需的时间。</p>
+<p>当然，缺点也是非常明显的：</p>
+<ul>
+<li>增加了系统结构和实现的复杂性：增加了系统结构和实现的复杂性</li>
+<li>视图跟控制器过于紧密的连接</li>
+<li>视图对模型数据的低效率访问：依据模型操作接口的不同，视图可能需要多次调用才能获得足够的显示数据</li>
+</ul>
+<hr>
+<h3 id="8、怎样提取两个文件中的指定列，到一个文件中"><a href="#8、怎样提取两个文件中的指定列，到一个文件中" class="headerlink" title="8、怎样提取两个文件中的指定列，到一个文件中"></a>8、怎样提取两个文件中的指定列，到一个文件中</h3><p>即 awk 命令的使用：</p>
+<p>假设log.txt的内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">2 this is a test</span><br><span class="line">3 Are you like awk</span><br><span class="line">This&#39;s a test</span><br><span class="line">10 There are orange,apple,mongo</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>用法一：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">awk '&#123;[pattern] action&#125;' &#123;filenames&#125;   # 行匹配语句 awk '' 只能用单引号</span><br><span class="line"><span class="meta">#</span><span class="bash"> 每行按空格或TAB分割，输出文本中的1、4项</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> awk <span class="string">'&#123;print $1,$4&#125;'</span> log.txt</span></span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>用法二：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">awk -F  #-F相当于内置变量FS, 指定分割字符</span><br><span class="line"><span class="meta">#</span><span class="bash"> 使用<span class="string">","</span>分割</span></span><br><span class="line"><span class="meta">$</span><span class="bash">  awk -F, <span class="string">'&#123;print $1,$2&#125;'</span>   log.txt</span></span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>用法三：相当于，仅仅是 $+数字  才表示那一列，如果 是数字和字母混在一起，则没用了</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">awk -v  # 设置变量</span><br><span class="line"><span class="meta">$</span><span class="bash"> awk -va=1 <span class="string">'&#123;print $1,$1+a&#125;'</span> log.txt</span></span><br><span class="line"> ---------------------------------------------</span><br><span class="line"> 2 3</span><br><span class="line"> 3 4</span><br><span class="line"> This's 1</span><br><span class="line"> </span><br><span class="line"><span class="meta"> $</span><span class="bash"> awk -va=1 -vb=s <span class="string">'&#123;print $1,$1+a,$1b&#125;'</span> log.txt</span></span><br><span class="line"> ---------------------------------------------</span><br><span class="line"> 2 3 2s</span><br><span class="line"> 3 4 3s</span><br><span class="line"> This's 1 This'ss</span><br><span class="line"> 10 11 10s</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>用法四：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">awk -f &#123;awk脚本&#125; &#123;文件名&#125;</span><br><span class="line"><span class="meta">$</span><span class="bash"> awk -f cal.awk log.txt</span></span><br><span class="line"></span><br><span class="line">过滤第一列大于2并且第二列等于'Are'的行</span><br><span class="line"><span class="meta">$</span><span class="bash"> awk <span class="string">'$1&gt;2 &amp;&amp; $2=="Are" &#123;print $1,$2,$3&#125;'</span> log.txt    <span class="comment">#命令</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash">输出</span></span><br><span class="line">3 Are you</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h3 id="9、cookie-和-session-的区别"><a href="#9、cookie-和-session-的区别" class="headerlink" title="9、cookie 和 session 的区别"></a>9、cookie 和 session 的区别</h3><h4 id="Cookie"><a href="#Cookie" class="headerlink" title="- Cookie"></a>- Cookie</h4><p>cookie 是服务器在本地机器上存储的一小段文本<u>【储存在客户端】</u>，并随着每一个请求发送至同一个服务器。网络服务器用 HTTP 头向客户端发送cookie，在客户端，浏览器解析这些 cookie 并将它们保存成本地文件，它会自动将统一服务器的任何请求绑定这些 cookie。</p>
+<p>cookie 机制采用的是<strong><u>在客户端保持状态</u></strong>的方案。cookie 的作用就是为了解决HTTP协议无状态的缺陷所作的努力。cookie 的主要内容包括：名字，值，过期时间，路径和域。如果没设置时间，则表示 cookie 的生命周期为浏览器会话期间，保存在内存中；若设置了过期时间，浏览器就会把 cookie 存在硬盘上，关闭后再次打开浏览器仍然有效。</p>
+<p>存储在硬盘上的cookie可以在不同的浏览器进程间共享，比如两个IE窗口。</p>
+<h4 id="session"><a href="#session" class="headerlink" title="- session"></a>- session</h4><p>session机制采用的是一种<strong><u>在服务器端保持状态</u></strong>的解决方案</p>
+<p>session是储存在服务端的，用 SessionID 来标注不同用户的 session 变量。具体的使用场景可以用在用户使用购物车购买东西的时候。当用户禁用 cookie 时，这个值也可能设置为由 get 来返回给服务器。</p>
+<p>从安全性说，session 机制更安全些，因为它不会任意读取客户存储的信息。</p>
+<h4 id="二者区别"><a href="#二者区别" class="headerlink" title="- 二者区别"></a>- 二者区别</h4><ol>
+<li>存取方式：cookie 只保存 ASCII 串，不能直接存取 java 对象；session 可以保存任何类型的数据。可以当作一个 java  的容器。</li>
+<li>隐私策略： cookie 存储在客户端中，对客户端是可见的，客户端的一些程序可能会窥探、复制其中的内容；session 存储在服务器上，对客户端是透明的，不存在敏感信息泄露的风险。</li>
+<li>有效期的不同：cookie 的时间长期有效，要想让它长期保持，仅仅需要将 cookie 的过期时间设置为一个很长的数字即可。</li>
+<li>服务器压力不同：cookie 不占用服务器资源，对于高并发的情景来说比较适合；相对的， 由于每个用户都会产生一个 session ，假设并发量很大，需要耗费服务器大量内存，所以不太适合。</li>
+<li>浏览器支持：cookie 需要客户端支持；若 cookie 被禁用 ，session 进行 URL 重写即可进行会话跟踪。</li>
+<li>跨域：cookie 支持跨域名访问，如将 domain 属性设置为 “msq.com”，则以此域名为后缀的子域名都可访问此 cookie ；session 不支持跨域，仅仅在当前所在域名内有效。</li>
+</ol>
+<hr>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
+<li><p><a href="https://www.jianshu.com/p/c1015f5ffa74" target="_blank" rel="noopener">进程间通信IPC (InterProcess Communication)</a></p>
+</li>
+<li><p><a href="https://juejin.im/entry/5766c29d6be3ff006a31b84e" target="_blank" rel="noopener">Cookie 与 Session 的区别</a></p>
+</li>
+<li><p><a href="https://www.zhihu.com/question/19786827" target="_blank" rel="noopener">COOKIE和SESSION有什么区别？</a></p>
+</li>
+<li><p><a href="https://www.cnblogs.com/wushuaishuai/p/9366402.html" target="_blank" rel="noopener">Nginx 介绍</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/e538c86c5f91" target="_blank" rel="noopener">浅谈MVC的优缺点。</a></p>
+</li>
+<li><p><a href="https://www.runoob.com/linux/linux-comm-awk.html" target="_blank" rel="noopener">Linux awk 命令</a></p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tech/tags/%E9%9D%A2%E7%BB%8F/" rel="tag"># 面经</a>
+              <a href="/tech/tags/%E7%99%BE%E5%BA%A6/" rel="tag"># 百度</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/tech/2020/03/08/stack1/" rel="prev" title="寒假撸算法之（三）—— 栈操作（一）">
+      <i class="fa fa-chevron-left"></i> 寒假撸算法之（三）—— 栈操作（一）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/tech/2020/03/18/Baidu_first/" rel="next" title="百度一面面经">
+      百度一面面经 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、自我介绍，项目介绍，实习介绍"><span class="nav-text">1、自我介绍，项目介绍，实习介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、https-和-http区别？为什么https可以实现安全？SSL是怎样保证安全的？"><span class="nav-text">2、https 和 http区别？为什么https可以实现安全？SSL是怎样保证安全的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、了解php吗？"><span class="nav-text">3、了解php吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、进程间通信的方式"><span class="nav-text">4、进程间通信的方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5、听过Nginx吗？是用来干嘛的"><span class="nav-text">5、听过Nginx吗？是用来干嘛的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6、在选择服务器上，如何选择合适的服务器？"><span class="nav-text">6、在选择服务器上，如何选择合适的服务器？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7、介绍一下-MVC-模式"><span class="nav-text">7、介绍一下 MVC 模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8、怎样提取两个文件中的指定列，到一个文件中"><span class="nav-text">8、怎样提取两个文件中的指定列，到一个文件中</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9、cookie-和-session-的区别"><span class="nav-text">9、cookie 和 session 的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Cookie"><span class="nav-text">- Cookie</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#session"><span class="nav-text">- session</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二者区别"><span class="nav-text">- 二者区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-text">参考资料</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Mathkey</p>
+  <div class="site-description" itemprop="description">所有东西都是技术问题，你写不出来是缺乏练习而不是笨</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/tech/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/tech/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tech/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mathkey</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1
+  </div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/tech/lib/anime.min.js"></script>
+  <script src="/tech/lib/velocity/velocity.min.js"></script>
+  <script src="/tech/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/tech/js/utils.js"></script>
+
+<script src="/tech/js/motion.js"></script>
+
+
+<script src="/tech/js/schemes/muse.js"></script>
+
+
+<script src="/tech/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

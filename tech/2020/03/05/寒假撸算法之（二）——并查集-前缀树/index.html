@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/tech/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/tech/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/tech/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/tech/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/tech/css/main.css">
+
+
+<link rel="stylesheet" href="/tech/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/tech/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一、并查集简介并查集，顾名思义，是主要提供两个操作：“并” ，”查“的集合，函数功能如下： Union(A,B) ：将 A 和 B 所在的集合合并。将 size 小的合并到 size 大的集合中。 isSameSet(A,B) : 返回A 和 B 所在的集合是否是同一个集合。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="寒假撸算法之（二）—— 并查集 &amp; 前缀树">
+<meta property="og:url" content="http://yoursite.com/2020/03/05/%E5%AF%92%E5%81%87%E6%92%B8%E7%AE%97%E6%B3%95%E4%B9%8B%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86-%E5%89%8D%E7%BC%80%E6%A0%91/index.html">
+<meta property="og:site_name" content="Mathkey&#39;s site">
+<meta property="og:description" content="一、并查集简介并查集，顾名思义，是主要提供两个操作：“并” ，”查“的集合，函数功能如下： Union(A,B) ：将 A 和 B 所在的集合合并。将 size 小的合并到 size 大的集合中。 isSameSet(A,B) : 返回A 和 B 所在的集合是否是同一个集合。">
+<meta property="og:image" content="http://yoursite.com/images/tu1.JPG">
+<meta property="og:image" content="http://yoursite.com/images/tu2.JPG">
+<meta property="og:image" content="http://yoursite.com/images/tu3.JPG">
+<meta property="og:image" content="http://yoursite.com/images/tu4.png">
+<meta property="og:image" content="http://yoursite.com/images/tu5.png">
+<meta property="og:image" content="http://yoursite.com/images/tu6.png">
+<meta property="article:published_time" content="2020-03-05T08:49:28.000Z">
+<meta property="article:modified_time" content="2020-03-07T05:48:17.964Z">
+<meta property="article:author" content="Mathkey">
+<meta property="article:tag" content="并查集">
+<meta property="article:tag" content="前缀树">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/images/tu1.JPG">
+
+<link rel="canonical" href="http://yoursite.com/2020/03/05/%E5%AF%92%E5%81%87%E6%92%B8%E7%AE%97%E6%B3%95%E4%B9%8B%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86-%E5%89%8D%E7%BC%80%E6%A0%91/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>寒假撸算法之（二）—— 并查集 & 前缀树 | Mathkey's site</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/tech/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mathkey's site</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/tech/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/tech/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tech/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/tech/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/tech/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/05/%E5%AF%92%E5%81%87%E6%92%B8%E7%AE%97%E6%B3%95%E4%B9%8B%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%E5%B9%B6%E6%9F%A5%E9%9B%86-%E5%89%8D%E7%BC%80%E6%A0%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/tech/images/avatar.gif">
+      <meta itemprop="name" content="Mathkey">
+      <meta itemprop="description" content="所有东西都是技术问题，你写不出来是缺乏练习而不是笨">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mathkey's site">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          寒假撸算法之（二）—— 并查集 & 前缀树
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-03-05 16:49:28" itemprop="dateCreated datePublished" datetime="2020-03-05T16:49:28+08:00">2020-03-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-07 13:48:17" itemprop="dateModified" datetime="2020-03-07T13:48:17+08:00">2020-03-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/tech/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构和算法</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="一、并查集"><a href="#一、并查集" class="headerlink" title="一、并查集"></a>一、并查集</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>并查集，顾名思义，是主要提供两个操作：“并” ，”查“的集合，函数功能如下：</p>
+<p>Union(A,B) ：将 A 和 B 所在的集合合并。将 size 小的合并到 size 大的集合中。</p>
+<p>isSameSet(A,B) : 返回A 和 B 所在的集合是否是同一个集合。</p>
+<a id="more"></a>
+
+<p>在并查集中，每个元素节点有一个 value 和 P 指针，P 指向上一级节点。</p>
+<p><strong>代表点</strong>：以代表点来代表该集合。例如用链表的head来代表该链表的意思。</p>
+<h3 id="Union演示"><a href="#Union演示" class="headerlink" title="Union演示"></a>Union演示</h3><ol>
+<li>初始状态时，各个节点的 P 指向自身。当发生节点合并时，如1 和 2 合并，则 1 的 P 指针指向2 。如下图：</li>
+</ol>
+<p><img src="/tech/images/tu1.JPG" alt="tu1"></p>
+<center>图1 初始状态</center>
+
+<ol start="2">
+<li>当 1 和 2 合并，12 和 3 合并时，如下：</li>
+</ol>
+<p><img src="/tech/images/tu2.JPG" alt="tu2"></p>
+<center>图2 1和2合并</center>
+
+<ol start="3">
+<li>12 和 3 合并，如下：</li>
+</ol>
+<p><img src="/tech/images/tu3.JPG" alt="tu3"></p>
+<center>图3  12和3合并</center>
+
+
+
+<h3 id="isSameSet演示"><a href="#isSameSet演示" class="headerlink" title="isSameSet演示"></a>isSameSet演示</h3><p>发生合并后，怎样判断两个节点是否是同一个集合？</p>
+<p>——从该节点出发，利用 P 不断向上找节点，直到 P 指向自身时，返回该节点，即为此集合的代表点。</p>
+<p>若 A代 == B代 ，则 A 和 B在同一个集合中；不等，则不在。</p>
+<h3 id="优化——路径压缩"><a href="#优化——路径压缩" class="headerlink" title="优化——路径压缩"></a>优化——路径压缩</h3><p>也叫扁平化处理。在 查询操作 isSameSet(A,B) 的过程中，A 沿途的链所有节点都打平，B 沿途的链也打平 ，再返回true / false 。【为后续的查询操作加快速度】</p>
+<p><img src="/tech/images/tu4.png" alt="tu4"></p>
+<center>图4  扁平化处理</center>
+
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><p>注意：必须一开始就拿到所有数据，而不是动态的增加数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">public class Data&#123;</span><br><span class="line">	&#x2F;&#x2F;填啥都行，为了封装数据而已 以int为例</span><br><span class="line">	public int value;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class UnionFindSet&#123;</span><br><span class="line">	public HashMap&lt;Data,Data&gt; fatherMap;  &#x2F;&#x2F;(key,value)表示key的父节点是value</span><br><span class="line">	public HashMap&lt;Data,Integer&gt; sizeMap; &#x2F;&#x2F;(key,int)只有在key是此集合的代表节点时，int表示此集合的size ； 否则无意义</span><br><span class="line"></span><br><span class="line">	public UnionFindSet(List&lt;Data&gt; nodes)&#123;</span><br><span class="line">		fatherMap &#x3D; new HashMap&lt;Data,Data&gt;();</span><br><span class="line">		sizeMap &#x3D; new HashMap&lt;Data,Integer&gt;();</span><br><span class="line">		makeSets(nodes);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	private void makeSets(List&lt;Data&gt; nodes)&#123; &#x2F;&#x2F;构建集合</span><br><span class="line">		fatherMap.clear();</span><br><span class="line">		sizeMap.clear();</span><br><span class="line">		for(Data node : nodes)&#123;</span><br><span class="line">			fatherMap.put(node,node); &#x2F;&#x2F;指向自身</span><br><span class="line">			sizeMap.put(node,1); &#x2F;&#x2F;size &#x3D; 1</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	private Data findRepresent(Data node)&#123; &#x2F;&#x2F;查询node的代表点的同时，将node挂到代表点上</span><br><span class="line">		Data father &#x3D; fatherMap.get(node);</span><br><span class="line">		if(father !&#x3D; node)&#123;</span><br><span class="line">			father &#x3D; findRepresent(father);</span><br><span class="line">		&#125;</span><br><span class="line">		fatherMap.put(node,father);</span><br><span class="line">		return father;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public boolean isSameSet(Data a, Data b)&#123;&#x2F;&#x2F;返回a，b是否在同一个集合中</span><br><span class="line">		return findRepresent(a) &#x3D;&#x3D; findRepresent(b);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void union(Data a, Data b)&#123; &#x2F;&#x2F; 合并a，b所在集合</span><br><span class="line">		if(a &#x3D;&#x3D; null || b &#x3D;&#x3D; null)&#123;</span><br><span class="line">			return;</span><br><span class="line">		&#125;</span><br><span class="line">		Data aRepresent &#x3D; findRepresent(a);</span><br><span class="line">		Data bRepresent &#x3D; findRepresent(b);</span><br><span class="line">		if(aRepresent !&#x3D; bRepresent)&#123; &#x2F;&#x2F;a b的代表结构不同才会发生合并操作</span><br><span class="line">			int aSetSize &#x3D; sizeMap.get(aRepresent);</span><br><span class="line">			int bSetSize &#x3D; sizeMap.get(bRepresent);</span><br><span class="line">			if(aSetSize &lt;&#x3D; bSetSize)&#123; &#x2F;&#x2F;size小的挂到大的上</span><br><span class="line">				fatherMap.put(aRepresent,bRepresent);</span><br><span class="line">				sizeMap.put(bRepresent,aSetSize+bSetSize);</span><br><span class="line">			&#125;else&#123;</span><br><span class="line">				fatherMap.put(bRepresent,aRepresent);</span><br><span class="line">				sizeMap.put(aRepresent,aSetSize+bSetSize);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h3><p>注：某大牛从1964年证明到1989年，整整25年才证明出这个结构有多牛逼。</p>
+<p>当元素个数到 O(N) 数量级时，若<strong>查询次数+合并次数</strong>（因为合并中也包含着查询）达到 O(N) 及其以上，则平均单次查询/合并的复杂度是 O(1) 级别。</p>
+<p>有点绕是吧？就是说，如果有10000个节点，我们查询或者合并的次数达到了 10000 次或者 $10000^2$ 及其以上，则平均下来再次查询/合并的代价是 O( α(N) ) 。</p>
+<p>其中，α(N) 是个成长极其缓慢的函数。可否具体？当 N 达到  10^80 （目前人类已经探明的总原子数）时，α(N) 返回值不会超过 6 ，所以可以看作是 O(1) 的代价。</p>
+<hr>
+<h2 id="二、前缀树"><a href="#二、前缀树" class="headerlink" title="二、前缀树"></a>二、前缀树</h2><h3 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h3><p>英文：trie tree / prefix tree。前缀树是用于保存关联数组的数据结构，简单一点地说，它可以很快速的返回两个字符串是否有相同的前缀内容。更详细的定义见：<a href="https://zh.wikipedia.org/wiki/Trie" target="_blank" rel="noopener">维基百科的定义</a></p>
+<p>如果您没看懂，看一下下面的图就知道什么意思了。</p>
+<p><img src="/tech/images/tu5.png" alt="前缀树简介">    </p>
+<center>图5 前缀树简介</center>
+
+
+
+<h3 id="封装节点："><a href="#封装节点：" class="headerlink" title="封装节点："></a>封装节点：</h3><p>pass：表示有多少个节点经过本节点（共享本节点的字符串数量）</p>
+<p>end： 表示有多少字符以这个节点结尾（最下面的节点 end=1，越往上end越大）</p>
+<p>nexts[] :用于保存这个节点。</p>
+<h3 id="有什么用？"><a href="#有什么用？" class="headerlink" title="有什么用？"></a>有什么用？</h3><p>也许你还是不知道这个数据结构可以干嘛。那么思考一下这个问题：<strong>查询 ”helo“ 是否在集合中出现过？</strong>  </p>
+<p>常规的思路不外乎三种：1.遍历整个集合来看；2.在保存这个集合时就用 hashmap 来进行存储。</p>
+<p>而如果是使用<strong>前缀树</strong>的思路：依次看 ‘h’ , ‘e’ , ‘l’ , ‘o’ 这些节点有没有在树中出现过。  </p>
+<p><img src="/tech/images/tu6.png" alt="寻找helo"></p>
+<center>图6 寻找helo</center>
+
+<p>如果该树没有保存 ‘helo’，那么到 ‘hel’时，算法就会结束；保存了后，则会正常的找到。而这个过程中的时间复杂度，仅仅和<strong><em>要查找的单词长度</em></strong>有关系。</p>
+<h3 id="Code-1"><a href="#Code-1" class="headerlink" title="Code"></a>Code</h3><p>为了实现得简单一些，约定总共就26个小写字母，所以可以用数组来写了。(如果是更复杂的情况，可以替换为 HashMap )。</p>
+<p>代码中的index作用：用下一个节点对应的ASCII码来的位置置为 1 ，表示该字母被保存。比如：下一个节点指向 ‘a’ ，则 nexts[0] = 下一个节点 ; 指向 ‘z’ ，则 nexts[25] = 下一个节点。</p>
+<p>具体代码如下，已经加了注释，不懂的欢迎留言：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TrieNode</span></span>&#123;  <span class="comment">//前缀树中封装的单个节点</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">int</span> pass; <span class="comment">//表示有多少个节点经过本节点（共享本节点的字符串数量）</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">int</span> end; <span class="comment">// 表示有多少字符以这个节点结尾</span></span><br><span class="line">	<span class="keyword">public</span> TrieNode[] nexts; </span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">TrieNode</span><span class="params">()</span></span>&#123;</span><br><span class="line">		pass = <span class="number">0</span>;</span><br><span class="line">		end = <span class="number">0</span>;</span><br><span class="line">		nexts = <span class="keyword">new</span> TrieNode[<span class="number">26</span>]; <span class="comment">//默认只有26个字母。若是中文改为Map</span></span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Trie</span></span>&#123;  <span class="comment">//前缀树</span></span><br><span class="line">	<span class="keyword">private</span> TrieNode root;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Trie</span><span class="params">()</span></span>&#123;</span><br><span class="line">		root = <span class="keyword">new</span> TrieNode();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(String word)</span></span>&#123; <span class="comment">//往树中插入 word</span></span><br><span class="line">		<span class="keyword">if</span>(word == <span class="keyword">null</span>)&#123;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">char</span>[] chs = word.toCharArray();</span><br><span class="line">		TrieNode node = root;</span><br><span class="line">		<span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; chs.length; i++)&#123;</span><br><span class="line">			index = chs[i] -<span class="string">'a'</span>;</span><br><span class="line">			<span class="keyword">if</span>(node.nexts[index] == <span class="keyword">null</span>)&#123;</span><br><span class="line">				node.nexts[index] = <span class="keyword">new</span> TrieNode();</span><br><span class="line">			&#125;</span><br><span class="line">			node = node.nexts[index];</span><br><span class="line">			node.pass++;<span class="comment">//沿途pass++，说明本节点被共享的次数增加了</span></span><br><span class="line">		&#125;</span><br><span class="line">		node.end++;	<span class="comment">//以本节点结束的字符串++	</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(String word)</span></span>&#123; <span class="comment">//沿途node.pass-- 可以更好</span></span><br><span class="line">		<span class="keyword">if</span>(search(word) != <span class="number">0</span>)&#123; <span class="comment">//要删除的元素存在</span></span><br><span class="line">			<span class="keyword">char</span>[] chs = word.toCharArray();</span><br><span class="line">			TrieNode node = root;</span><br><span class="line">			<span class="keyword">int</span> index = <span class="number">0</span> ;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; chs.length; i++)&#123;</span><br><span class="line">				index = chs[i] - <span class="string">'a'</span>;</span><br><span class="line">				<span class="keyword">if</span>(--node.nexts[index].pass == <span class="number">0</span>)&#123;</span><br><span class="line">					node.nexts[index] = <span class="keyword">null</span>;</span><br><span class="line">					<span class="keyword">return</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				node = node.nexts[index];</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		node.end--;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">search</span><span class="params">(String word)</span></span>&#123; <span class="comment">//查询word是否出现过</span></span><br><span class="line">		<span class="keyword">if</span>(word == <span class="keyword">null</span>)&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">char</span>[] chs = word.toCharArray();</span><br><span class="line">		TrieNode node = root;<span class="comment">//从根开始找</span></span><br><span class="line">		<span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; chs.length; i++)&#123;</span><br><span class="line">			index = chs[i] - <span class="string">'a'</span>;</span><br><span class="line">			<span class="keyword">if</span>(node.nexts[index] = <span class="keyword">null</span>)&#123;	</span><br><span class="line">				<span class="keyword">return</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			node = node.nexts[index];</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> node.end;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">prefixNumber</span><span class="params">(String pre)</span></span>&#123; <span class="comment">//返回以pre为前缀的字符串数</span></span><br><span class="line">		<span class="keyword">if</span>(pre == <span class="keyword">null</span>)&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">char</span>[] chs = pre.toCharArray();</span><br><span class="line">		TrieNode node = root;<span class="comment">//从根开始找</span></span><br><span class="line">		<span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; chs.length; i++)&#123;</span><br><span class="line">			index = chs[i] - <span class="string">'a'</span>;</span><br><span class="line">			<span class="keyword">if</span>(node.nexts[index] = <span class="keyword">null</span>)&#123;	</span><br><span class="line">				<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			node = node.nexts[index];</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> node.pass; </span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><p>插入，删除，查询都只需要目标字符串的长度时间，即 T( N ) = O( N )</p>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><p>图、字符串中的很多操作都可以用到前缀树，后续的文章中会一一讲解，敬请期待。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tech/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag"># 并查集</a>
+              <a href="/tech/tags/%E5%89%8D%E7%BC%80%E6%A0%91/" rel="tag"># 前缀树</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/tech/2020/03/04/%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E9%93%BE%E8%A1%A8%E6%98%AF%E5%90%A6%E6%98%AF%E5%9B%9E%E6%96%87%E7%BB%93%E6%9E%84/" rel="prev" title="判断一个链表是否是回文结构">
+      <i class="fa fa-chevron-left"></i> 判断一个链表是否是回文结构
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/tech/2020/03/05/%E8%8D%B7%E5%85%B0%E5%9B%BD%E6%97%97%E9%97%AE%E9%A2%98/" rel="next" title="荷兰国旗问题">
+      荷兰国旗问题 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、并查集"><span class="nav-text">一、并查集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Union演示"><span class="nav-text">Union演示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#isSameSet演示"><span class="nav-text">isSameSet演示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化——路径压缩"><span class="nav-text">优化——路径压缩</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Code"><span class="nav-text">Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时间复杂度分析"><span class="nav-text">时间复杂度分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、前缀树"><span class="nav-text">二、前缀树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介-1"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#封装节点："><span class="nav-text">封装节点：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有什么用？"><span class="nav-text">有什么用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Code-1"><span class="nav-text">Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时间复杂度"><span class="nav-text">时间复杂度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用"><span class="nav-text">应用</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Mathkey</p>
+  <div class="site-description" itemprop="description">所有东西都是技术问题，你写不出来是缺乏练习而不是笨</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/tech/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/tech/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tech/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mathkey</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1
+  </div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/tech/lib/anime.min.js"></script>
+  <script src="/tech/lib/velocity/velocity.min.js"></script>
+  <script src="/tech/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/tech/js/utils.js"></script>
+
+<script src="/tech/js/motion.js"></script>
+
+
+<script src="/tech/js/schemes/muse.js"></script>
+
+
+<script src="/tech/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

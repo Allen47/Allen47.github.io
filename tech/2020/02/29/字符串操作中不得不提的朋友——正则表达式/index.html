@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/tech/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/tech/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/tech/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/tech/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/tech/css/main.css">
+
+
+<link rel="stylesheet" href="/tech/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/tech/","scheme":"Muse","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一、简述正则表达式，Regular Expression ，又称规则表达式，简写为reg exp。学习String 类的时候，有很多方法中用到了regex。详见维基百科“正则表达式词条” 。 正则表达式是一种带有规律 、格式的表达式。通常用来匹配格式、替换、检索。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="字符串操作中不得不提的朋友——正则表达式">
+<meta property="og:url" content="http://yoursite.com/2020/02/29/%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C%E4%B8%AD%E4%B8%8D%E5%BE%97%E4%B8%8D%E6%8F%90%E7%9A%84%E6%9C%8B%E5%8F%8B%E2%80%94%E2%80%94%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Mathkey&#39;s site">
+<meta property="og:description" content="一、简述正则表达式，Regular Expression ，又称规则表达式，简写为reg exp。学习String 类的时候，有很多方法中用到了regex。详见维基百科“正则表达式词条” 。 正则表达式是一种带有规律 、格式的表达式。通常用来匹配格式、替换、检索。">
+<meta property="article:published_time" content="2020-02-29T15:06:42.000Z">
+<meta property="article:modified_time" content="2020-03-04T14:27:49.022Z">
+<meta property="article:author" content="Mathkey">
+<meta property="article:tag" content="String">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/02/29/%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C%E4%B8%AD%E4%B8%8D%E5%BE%97%E4%B8%8D%E6%8F%90%E7%9A%84%E6%9C%8B%E5%8F%8B%E2%80%94%E2%80%94%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>字符串操作中不得不提的朋友——正则表达式 | Mathkey's site</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/tech/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mathkey's site</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/tech/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/tech/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tech/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/tech/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/tech/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/29/%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C%E4%B8%AD%E4%B8%8D%E5%BE%97%E4%B8%8D%E6%8F%90%E7%9A%84%E6%9C%8B%E5%8F%8B%E2%80%94%E2%80%94%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/tech/images/avatar.gif">
+      <meta itemprop="name" content="Mathkey">
+      <meta itemprop="description" content="所有东西都是技术问题，你写不出来是缺乏练习而不是笨">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mathkey's site">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          字符串操作中不得不提的朋友——正则表达式
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-29 23:06:42" itemprop="dateCreated datePublished" datetime="2020-02-29T23:06:42+08:00">2020-02-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-04 22:27:49" itemprop="dateModified" datetime="2020-03-04T22:27:49+08:00">2020-03-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/tech/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="一、简述"><a href="#一、简述" class="headerlink" title="一、简述"></a>一、简述</h2><p>正则表达式，Regular Expression ，又称规则表达式，简写为reg exp。学习String 类的时候，有很多方法中用到了regex。详见<a href="https://zh.wikipedia.org/wiki/正则表达式" target="_blank" rel="noopener">维基百科“正则表达式词条” </a>。</p>
+<p>正则表达式是一种带有规律 、格式的表达式。通常用来匹配格式、替换、检索。</p>
+<a id="more"></a>
+
+<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p>在很多开发场景都会看到正则表达式的影子，一言以蔽之，其作用无非一下三种：</p>
+<p><strong><em>1.格式检验；2.拆分替换；3.检索字串</em></strong> 。</p>
+<p>就Java来说，前两个作用通过String类就可以完成了，如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String str = <span class="keyword">new</span> String();</span><br><span class="line">str.matches(regex);</span><br><span class="line">str.split(regex)</span><br><span class="line">str.replaceFirst(regex, replacement);</span><br></pre></td></tr></table></figure>
+
+<p>第三个作用需要依赖Pattern模式 ，Matcher匹配器进行操作，将在下文进行详细叙述。</p>
+<h3 id="正则表达式的来由"><a href="#正则表达式的来由" class="headerlink" title="正则表达式的来由"></a>正则表达式的来由</h3><p>“知其然，知其所以然。”下面简单普及一下正则的由来。</p>
+<p>最初的正则表达式出现于<a href="https://zh.wikipedia.org/wiki/理論計算機科學" target="_blank" rel="noopener">理论计算机科学</a>的<a href="https://zh.wikipedia.org/wiki/自动控制" target="_blank" rel="noopener">自动控制</a>理论和<a href="https://zh.wikipedia.org/wiki/形式化语言" target="_blank" rel="noopener">形式化语言</a>理论中。在这些领域中有对计算（自动控制）的模型和对<a href="https://zh.wikipedia.org/wiki/形式化语言" target="_blank" rel="noopener">形式化语言</a>描述与分类的研究。</p>
+<p>正则表达式鼻祖——1940年，<a href="https://zh.wikipedia.org/wiki/沃伦·麦卡洛克" target="_blank" rel="noopener">沃伦·麦卡洛克</a>与<a href="https://zh.wikipedia.org/w/index.php?title=Walter_Pitts&action=edit&redlink=1" target="_blank" rel="noopener">Walter Pitts</a>将<a href="https://zh.wikipedia.org/wiki/神经系统" target="_blank" rel="noopener">神经系统</a>中的神经元描述成小而简单的自动控制元。</p>
+<p>1950年代，数学家<a href="https://zh.wikipedia.org/wiki/斯蒂芬·科尔·克莱尼" target="_blank" rel="noopener">斯蒂芬·科尔·克莱尼</a>利用称之为“正则集合”的数学符号来描述此模型。<a href="https://zh.wikipedia.org/wiki/肯·汤普逊" target="_blank" rel="noopener">肯·汤普逊</a>将此符号系统引入编辑器<a href="https://zh.wikipedia.org/w/index.php?title=QED_(文字編輯器)&action=edit&redlink=1" target="_blank" rel="noopener">QED</a>，随后是<a href="https://zh.wikipedia.org/wiki/Unix" target="_blank" rel="noopener">Unix</a>上的编辑器<a href="https://zh.wikipedia.org/w/index.php?title=Ed_(文字編輯器)&action=edit&redlink=1" target="_blank" rel="noopener">ed</a>，并最终引入<a href="https://zh.wikipedia.org/wiki/Grep" target="_blank" rel="noopener">grep</a>。自此以后，正则表达式被广泛地应用于各种Unix或<a href="https://zh.wikipedia.org/wiki/类Unix" target="_blank" rel="noopener">类Unix</a>系统的工具中。正则表达式的POSIX规范，分为基本型正则表达式（Basic Regular Expression，BRE）和扩展型正则表达式（Extended Regular Express，ERE）两大流派。在兼容POSIX的UNIX系统上，grep和egrep之类的工具都遵循POSIX规范，一些数据库系统中的正则表达式也符合POSIX规范。grep、vi、sed都属于BRE，是历史最早的正则表达式，因此元字符必须转译之后才具有特殊含义。egrep、awk则属于ERE，元字符不用转译</p>
+<p>或许你没什么兴趣看完上述的东西，但笔者想说：理解原理，也要适时的理解其来龙去脉，用思想层面提升维度。很多知识都是跨学科的，比如SSM的创始人们不少都不是程序员出身。</p>
+<p>真正掌握面向对象的编程—&gt; 需要从思维层次去思考    not just code</p>
+<h2 id="二、正则表达式的具体使用"><a href="#二、正则表达式的具体使用" class="headerlink" title="二、正则表达式的具体使用"></a>二、正则表达式的具体使用</h2><p>笔者不才，记不住太多的正则用法，下文仅仅是从自身的体验出发，列出了最最常用的几个用法。</p>
+<blockquote>
+<p>窃以为，正则归根到底是一个工具而不是用来炫技的，更多用法需要时直接Google即可，记住最基础的才是王道。</p>
+</blockquote>
+<h3 id="基本的表达式："><a href="#基本的表达式：" class="headerlink" title="基本的表达式："></a>基本的表达式：</h3><p>首先说明，[ ]不是闭区间，而是<strong>表达式</strong>的开始和结束</p>
+<p>可以记一下这几个符号：-    ^     &amp;    |    ，分别表示：    范围  ， 非  ， 与   或   。</p>
+<p>所有的逻辑都可以从上述几个符号组合产生</p>
+<p>[abc] : 表示输入的是abc中的一个</p>
+<p>[^abc] : 表示输入的不是a、b或者c中的其中一个</p>
+<p>[a-z] : 表示a-z字母范围（大写就不行了）   因为底层是Unicode</p>
+<p>[A-Za-z] : 表示是<strong>字母</strong></p>
+<p>[a-z&amp;&amp;[ ^ bc]] : 表示a-z且不是b或者c</p>
+<h3 id="简化版"><a href="#简化版" class="headerlink" title="简化版"></a>简化版</h3><p>随着表达式越来越长，写起来必然很麻烦，所以有些开发中将常用的<strong>范围</strong>做了一些简化</p>
+<p>.  : 代表任意一个子符</p>
+<p>数字：\d ，等价于[0-9]，代表任一个数字   digit</p>
+<p>非数字：\D  ，等价于[ ^0-9]</p>
+<p>留白：空格\s  (space)    回车\r  换行\n</p>
+<p>非留白：\S</p>
+<p>单词：\w   [0-9A-Za-z]    word单词的意思</p>
+<p>非单词：\W</p>
+<blockquote>
+<p>再次强调，上述用法都是用来做匹配的——且仅仅匹配一个字符。</p>
+</blockquote>
+<h3 id="匹配多个字符"><a href="#匹配多个字符" class="headerlink" title="匹配多个字符"></a>匹配多个字符</h3><p>如果需要匹配的字符不是一个而是多个，则需要用到次数来进行匹配。</p>
+<p>带上了次数的正则表达式的总公式：   **[表达式]{次数} **    。</p>
+<p>下面讲解{}中次数的写法：</p>
+<ul>
+<li>? ：0-1次  （可理解为 “出现过？？”）</li>
+<li>* ：0-n次 （出没出现过都行）</li>
+<li>+ ：1-n次 </li>
+<li>{n} ：固定n次</li>
+<li>{n,}：至少n次</li>
+<li>{n,m}：n-m次</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//正则表达式 就是一些符号  不用死记硬背</span></span><br><span class="line"><span class="comment">//需要时查API(Application Programming Interface)即可 </span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">    Scanner input = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">    System.out.println(<span class="string">"请您输入一个字符串"</span>);</span><br><span class="line">    String value = input.nextLine(); <span class="comment">//a</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//用value判断是否满足某种规则（正则）</span></span><br><span class="line">    <span class="keyword">boolean</span> result = value.matches(<span class="string">"[abcd]"</span>);<span class="comment">// [abcd] ：含有其中一个，返回true</span></span><br><span class="line">    System.out.println(result);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="检索"><a href="#检索" class="headerlink" title="检索"></a>检索</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">//有一个字符串message（可以从网络、数据库JDBC、IO中读取）</span></span><br><span class="line"> <span class="comment">//搜索message中有多少个符合某种编码格式的字符串</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">    String message = <span class="string">"150000msq150001abcd150002"</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//要做检索工作，String不行 需要Pattern类</span></span><br><span class="line">    Pattern pattern = Pattern.compile(<span class="string">"[0-9]&#123;6&#125;"</span>);<span class="comment">//此方法的参数是正则表达式</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//需要一个匹配器来执行扫描</span></span><br><span class="line">    Matcher matcher = pattern.matcher(message);<span class="comment">//此方法按照pattern规则扫描message，返回一个匹配器</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span>(matcher.find())&#123;</span><br><span class="line">        String v = matcher.group();</span><br><span class="line">        System.out.println(v);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>看到这里，笔者想跟小主透露件小知识，String的matches，split，replace等方法，底层所调用的方法也是用到了Pattern和Matcher。不信？请看源码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* @since 1.4</span></span><br><span class="line"><span class="comment">    * @spec JSR-51</span></span><br><span class="line"><span class="comment">    * matches的源代码</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">matches</span><span class="params">(String regex)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> Pattern.matches(regex, <span class="keyword">this</span>);</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line"></span><br><span class="line">   <span class="comment">/* split的源代码</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="keyword">public</span> String[] split(String regex, <span class="keyword">int</span> limit) &#123;</span><br><span class="line">       <span class="comment">/* fastpath if the regex is a</span></span><br><span class="line"><span class="comment">        (1)one-char String and this character is not one of the</span></span><br><span class="line"><span class="comment">           RegEx's meta characters ".$|()[&#123;^?*+\\", or</span></span><br><span class="line"><span class="comment">        (2)two-char String and the first char is the backslash and</span></span><br><span class="line"><span class="comment">           the second is not the ascii digit or ascii letter.</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">       <span class="keyword">char</span> ch = <span class="number">0</span>;</span><br><span class="line">       <span class="keyword">if</span> (((regex.value.length == <span class="number">1</span> &amp;&amp;</span><br><span class="line">            <span class="string">".$|()[&#123;^?*+\\"</span>.indexOf(ch = regex.charAt(<span class="number">0</span>)) == -<span class="number">1</span>) ||</span><br><span class="line">            (regex.length() == <span class="number">2</span> &amp;&amp;</span><br><span class="line">             regex.charAt(<span class="number">0</span>) == <span class="string">'\\'</span> &amp;&amp;</span><br><span class="line">             (((ch = regex.charAt(<span class="number">1</span>))-<span class="string">'0'</span>)|(<span class="string">'9'</span>-ch)) &lt; <span class="number">0</span> &amp;&amp;</span><br><span class="line">             ((ch-<span class="string">'a'</span>)|(<span class="string">'z'</span>-ch)) &lt; <span class="number">0</span> &amp;&amp;</span><br><span class="line">             ((ch-<span class="string">'A'</span>)|(<span class="string">'Z'</span>-ch)) &lt; <span class="number">0</span>)) &amp;&amp;</span><br><span class="line">           (ch &lt; Character.MIN_HIGH_SURROGATE ||</span><br><span class="line">            ch &gt; Character.MAX_LOW_SURROGATE))</span><br><span class="line">       &#123;</span><br><span class="line">           <span class="keyword">int</span> off = <span class="number">0</span>;</span><br><span class="line">           <span class="keyword">int</span> next = <span class="number">0</span>;</span><br><span class="line">           <span class="keyword">boolean</span> limited = limit &gt; <span class="number">0</span>;</span><br><span class="line">           ArrayList&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">           <span class="keyword">while</span> ((next = indexOf(ch, off)) != -<span class="number">1</span>) &#123;</span><br><span class="line">               <span class="keyword">if</span> (!limited || list.size() &lt; limit - <span class="number">1</span>) &#123;</span><br><span class="line">                   list.add(substring(off, next));</span><br><span class="line">                   off = next + <span class="number">1</span>;</span><br><span class="line">               &#125; <span class="keyword">else</span> &#123;    <span class="comment">// last one</span></span><br><span class="line">                   <span class="comment">//assert (list.size() == limit - 1);</span></span><br><span class="line">                   list.add(substring(off, value.length));</span><br><span class="line">                   off = value.length;</span><br><span class="line">                   <span class="keyword">break</span>;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="comment">// If no match was found, return this</span></span><br><span class="line">           <span class="keyword">if</span> (off == <span class="number">0</span>)</span><br><span class="line">               <span class="keyword">return</span> <span class="keyword">new</span> String[]&#123;<span class="keyword">this</span>&#125;;</span><br><span class="line"></span><br><span class="line">           <span class="comment">// Add remaining segment</span></span><br><span class="line">           <span class="keyword">if</span> (!limited || list.size() &lt; limit)</span><br><span class="line">               list.add(substring(off, value.length));</span><br><span class="line"></span><br><span class="line">           <span class="comment">// Construct result</span></span><br><span class="line">           <span class="keyword">int</span> resultSize = list.size();</span><br><span class="line">           <span class="keyword">if</span> (limit == <span class="number">0</span>) &#123;</span><br><span class="line">               <span class="keyword">while</span> (resultSize &gt; <span class="number">0</span> &amp;&amp; list.get(resultSize - <span class="number">1</span>).length() == <span class="number">0</span>) &#123;</span><br><span class="line">                   resultSize--;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">           String[] result = <span class="keyword">new</span> String[resultSize];</span><br><span class="line">           <span class="keyword">return</span> list.subList(<span class="number">0</span>, resultSize).toArray(result);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> Pattern.compile(regex).split(<span class="keyword">this</span>, limit);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> <span class="comment">/*</span></span><br><span class="line"><span class="comment">    * @since 1.4</span></span><br><span class="line"><span class="comment">    * @spec JSR-51</span></span><br><span class="line"><span class="comment">    * replaceAll的源代码</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">replaceAll</span><span class="params">(String regex, String replacement)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> Pattern.compile(regex).matcher(<span class="keyword">this</span>).replaceAll(replacement);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="三、写在最后"><a href="#三、写在最后" class="headerlink" title="三、写在最后"></a>三、写在最后</h2><p>正则表达式是开发过程中涉及到字符串相关操作的一个有力工具，它不是某种语言所独有的特性，主流的开发语言中都有相关正则表达式的用法。</p>
+<p>笔者写这篇文章，仅仅是为了给小白们一点参考，或许“从未遇见，一直听说”，至少看了这篇文后，有了最基本的了解。还望大牛们不吝赐教。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tech/tags/String/" rel="tag"># String</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/tech/2019/04/07/Bytedance/" rel="prev" title="字节面经">
+      <i class="fa fa-chevron-left"></i> 字节面经
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/tech/2020/03/01/%E5%AF%92%E5%81%87%E6%92%B8%E7%AE%97%E6%B3%95%E4%B9%8B%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%20%E5%87%A0%E4%B8%AA%E5%BE%88easy%E7%9A%84%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" rel="next" title="寒假撸算法之（一）——  几个很easy的排序算法">
+      寒假撸算法之（一）——  几个很easy的排序算法 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、简述"><span class="nav-text">一、简述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#作用"><span class="nav-text">作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正则表达式的来由"><span class="nav-text">正则表达式的来由</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、正则表达式的具体使用"><span class="nav-text">二、正则表达式的具体使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本的表达式："><span class="nav-text">基本的表达式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简化版"><span class="nav-text">简化版</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匹配多个字符"><span class="nav-text">匹配多个字符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检索"><span class="nav-text">检索</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、写在最后"><span class="nav-text">三、写在最后</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Mathkey</p>
+  <div class="site-description" itemprop="description">所有东西都是技术问题，你写不出来是缺乏练习而不是笨</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/tech/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/tech/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tech/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mathkey</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.1
+  </div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/tech/lib/anime.min.js"></script>
+  <script src="/tech/lib/velocity/velocity.min.js"></script>
+  <script src="/tech/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/tech/js/utils.js"></script>
+
+<script src="/tech/js/motion.js"></script>
+
+
+<script src="/tech/js/schemes/muse.js"></script>
+
+
+<script src="/tech/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
